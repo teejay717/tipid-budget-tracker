@@ -26,33 +26,33 @@ const AddTransaction = () => {
     return (
         <>
         <div>
-        <h3 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4 text-gray-700">Add new transaction</h3>
+        <h3 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4 text-white">Add new transaction</h3>
         <form onSubmit={onSubmit}>
             <div className="mb-4">
-            <label className="block text-gray-600 text-sm font-bold mb-2">Text</label>
+            <label className="block text-white text-sm font-bold mb-2">Text</label>
             <input 
                 type="text" 
                 value={text} 
                 onChange={(e) => setText(e.target.value)} 
                 placeholder="Enter text..." 
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow" 
+                className="w-auto p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow text-white" 
             />
             </div>
             <div className="mb-6">
-            <label className="block text-gray-600 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
                 Amount <br />
-                <span className="text-xs font-normal text-gray-400">(negative - expense, positive - income)</span>
+                <span className="text-xs font-normal text-white">(negative - expense, positive - income)</span>
             </label>
             <input 
                 type="number" 
                 value={amount} 
                 onChange={(e) => setAmount(e.target.value)} 
                 placeholder="Enter amount..." 
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow" 
+                className="w-auto p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow text-white" 
             />
             </div>
             <div className="mb-6">
-            <label className="block text-gray-600 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
                 Category <br />
             </label>
             <input 
@@ -60,10 +60,10 @@ const AddTransaction = () => {
                 value={category} 
                 onChange={(e) => setCategory(e.target.value)} 
                 placeholder="Enter category" 
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow" 
+                className="w-auto p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow text-white" 
             />
             </div>
-            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded shadow-md hover:shadow-lg transform active:scale-95 transition-all duration-200">
+            <button className="w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded shadow-md hover:shadow-lg transform active:scale-95 transition-all duration-200">
             Add Transaction
             </button>
         </form>

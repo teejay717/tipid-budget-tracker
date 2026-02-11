@@ -12,14 +12,16 @@ function App() {
       <BrowserRouter>
         <div className="flex min-h-screen bg-gray-950">
           <Sidebar />
-          <main className="flex-1 p-8">
+        
+          <main className="flex-1 flex-col p-8">
+            
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/history" element={<History />} />
               <Route path="/categories" element={<Categories />} />
             </Routes>
           </main>
-        </div>
+          </div>
       </BrowserRouter>
     </GlobalProvider>
   );
