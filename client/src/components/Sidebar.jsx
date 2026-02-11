@@ -19,7 +19,7 @@ const Sidebar = () => {
         border-r border-gray-800
         transition-all duration-300 ease-in-out
         ${isOpen ? 'w-56' : 'w-16'}
-      `}
+        `}
         >
             {/* Toggle button */}
             <button
@@ -46,12 +46,12 @@ const Sidebar = () => {
                         end={to === '/'}
                         className={({ isActive }) =>
                             `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
-              ${isActive
+                ${isActive
                                 ? 'bg-indigo-600/20 text-indigo-400'
                                 : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200'
                             }
-              ${!isOpen ? 'justify-center' : ''}
-              `
+                ${!isOpen ? 'justify-center' : ''}
+                `
                         }
                     >
                         <Icon className="text-xl shrink-0" />

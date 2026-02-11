@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalState';
-import { MdCallMade, MdCallReceived } from 'react-icons/md';
+import { MdCallMade, MdCallReceived, MdDeleteOutline } from 'react-icons/md';
+
 
 const TransactionList = () => {
 
@@ -64,9 +65,9 @@ const TransactionList = () => {
                             {/* Delete button — slides in from the right */}
                             <button
                                 onClick={() => deleteTransaction(transaction._id)}
-                                className="absolute right-0 top-0 bottom-0 bg-red-500 text-white w-8 flex items-center justify-center translate-x-full group-hover:translate-x-0 transition-transform duration-200 cursor-pointer z-10"
+                                className=" text-white w-8 flex items-center justify-center  transition-transform duration-200 cursor-pointer p-1 rounded-lg hover:bg-gray-500"
                             >
-                                ✕
+                                <MdDeleteOutline className="text-lg text-gray-600 hover:text-red-500" />
                             </button>
                         </li>
                     )
