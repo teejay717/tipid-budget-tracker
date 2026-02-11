@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalState';
+import { MdCallMade, MdCallReceived } from 'react-icons/md';
 
 const TransactionList = () => {
 
@@ -9,49 +10,71 @@ const TransactionList = () => {
         getTransactions();
     }, [])
 
-  return (
-    <div className='mb-8'>
-        <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-4">
-            <h3 className="text-lg font-bold text-gray-700">History</h3>
-            {transactions.length > 0 && (
-                <button 
-                    onClick={clearTransactions}
-                    className="text-xs text-red-500 hover:text-red-700 font-bold uppercase tracking-wider transition-colors"
-                >
-                    Clear All
-                </button>
-            )}
-        </div>
-        
-        <ul>
-            {transactions.map(transaction => {
-                const sign = transaction.amount < 0 ? '-' : '+';
-                const borderColor = transaction.amount < 0 ? 'border-red-500' : 'border-green-500';
-                const textColor = transaction.amount < 0 ? 'text-red-600' : 'text-green-600'
-
-                return (
-                    <li key={transaction._id} className={`bg-white p-3 rounded shadow-sm flex justify-between items-center border-r-4 ${borderColor} group hover:shadow-md transition duration-200 relative overflow-hidden`}>
-                    <div className='flex flex-col'>
-                        <span className="pl-2 font-medium text-gray-600 group-hover:translate-x-2 transition-transform duration-200">{transaction.text}</span>
-                        <span className="pl-2 font-medium text-gray-600 group-hover:translate-x-2 transition-transform duration-200">{transaction.category}</span>
-                    </div>
-                    
-                    <span className={`font-bold ${textColor}`}>
-                    {sign}₱{Math.abs(transaction.amount)}
-                    </span>
-                    <button 
-                    onClick={() => deleteTransaction(transaction._id)} 
-                    className="absolute left-0 top-0 bottom-0 bg-red-500 text-white w-8 flex items-center justify-center -translate-x-full group-hover:translate-x-0 transition-transform duration-200 cursor-pointer z-10"
+    return (
+        <div className='mb-8'>
+            <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
+                <h3 className="text-lg font-bold text-gray-400">History</h3>
+                {transactions.length > 0 && (
+                    <button
+                        onClick={clearTransactions}
+                        className="text-xs text-red-500 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer"
                     >
-                    ✕
+                        Clear All
                     </button>
-                </li>
-                )
-            })}
-        </ul>
+                )}
+            </div>
 
-    </div>
-  )
+            <ul className='flex flex-col gap-2'>
+                {transactions.map(transaction => {
+                    const isExpense = transaction.amount < 0;
+                    const sign = isExpense ? '-' : '+';
+                    const textColor = isExpense ? 'text-red-400' : 'text-green-400';
+                    const iconBg = isExpense ? 'bg-red-900/40' : 'bg-green-900/40';
+                    const iconColor = isExpense ? 'text-red-400' : 'text-green-400';
+
+                    return (
+                        <li key={transaction._id} className="bg-gray-900 p-3 rounded-lg flex items-center gap-3 group hover:bg-gray-800/80 transition duration-200 relative overflow-hidden">
+                            {/* Income/Expense icon */}
+                            <div className={`w-9 h-9 rounded-full ${iconBg} flex items-center justify-center shrink-0`}>
+                                {isExpense
+                                    ? <MdCallMade className={`text-lg ${iconColor}`} />
+                                    : <MdCallReceived className={`text-lg ${iconColor}`} />
+                                }
+                            </div>
+
+                            {/* Text & details */}
+                            <div className='flex flex-col flex-1 min-w-0'>
+                                <span className="font-medium text-white">{transaction.text}</span>
+                                <div className="flex items-center gap-1 text-xs text-gray-500">
+                                    <span>{new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                                    {transaction.category && (
+                                        <>
+                                            <span>·</span>
+                                            <span>{transaction.category}</span>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Amount */}
+                            <span className={`font-bold ${textColor} whitespace-nowrap`}>
+                                {sign}₱{Math.abs(transaction.amount).toFixed(2)}
+                            </span>
+
+                            {/* Delete button — slides in from the right */}
+                            <button
+                                onClick={() => deleteTransaction(transaction._id)}
+                                className="absolute right-0 top-0 bottom-0 bg-red-500 text-white w-8 flex items-center justify-center translate-x-full group-hover:translate-x-0 transition-transform duration-200 cursor-pointer z-10"
+                            >
+                                ✕
+                            </button>
+                        </li>
+                    )
+                })}
+            </ul>
+
+        </div>
+    )
 }
 
 export default TransactionList

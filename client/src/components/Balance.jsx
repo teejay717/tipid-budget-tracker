@@ -1,5 +1,6 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState'
+import { MdAccountBalanceWallet } from 'react-icons/md'
 
 const Balance = () => {
 
@@ -13,35 +14,42 @@ const Balance = () => {
         .reduce((acc, item) => (acc += item), 0)
         .toFixed(2);
 
-    // filter for negative numbers and add them
-
-    const expense = amounts
-        .filter(item => item < 0)
-        .reduce((acc, item) => (acc += item), 0) * -1
-        .toFixed(2);
+    const expense = (
+        amounts
+            .filter(item => item < 0)
+            .reduce((acc, item) => (acc += item), 0) * -1
+    ).toFixed(2);
 
     return (
-        <div className="flex gap-8 mb-6 text-center border-2 border-gray-700 rounded-lg h-auto">
-            <div className='w-xs h-36 border-2 rounded-lg border-gray-800 items-center content-center text-left px-12 bg-gray-900'>
-                <h4 className="text-gray-500 text-lg uppercase tracking-wider font-semibold">Your Balance</h4>
-                <h1 className={`text-4xl font-extrabold ${total < 0 ? 'text-red-600' : 'text-white'}`}>
-                ₱{total}
+        <div className="grid grid-cols-3 gap-4 mb-6">
+            {/* Total Balance */}
+            <div className="rounded-xl border border-green-800/60 bg-green-950/30 p-5 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-2">
+                    <MdAccountBalanceWallet className="text-green-500 text-sm" />
+                    <span className="text-gray-400 text-xs font-medium uppercase tracking-wider">Total Balance</span>
+                </div>
+                <h1 className={`text-3xl font-extrabold text-white`}>
+                    ₱{total}
                 </h1>
             </div>
-            <div className='w-xs h-36 border-2 rounded-lg border-gray-800 items-center content-center text-left px-12 bg-gray-900'>
-                <h4 className="text-gray-500 text-lg uppercase tracking-wider font-semibold">Income</h4>
-                <h1 className={`text-4xl font-extrabold text-green-600`}>
-                ₱{income}
-                </h1>
+
+            {/* Income */}
+            <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-5 flex flex-col justify-center">
+                <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">Income</span>
+                <h2 className="text-xl font-bold text-green-400">
+                    +₱{income}
+                </h2>
             </div>
-            <div className='w-xs h-36 border-2 rounded-lg border-gray-800 items-center content-center text-left px-12 bg-gray-900'>
-                <h4 className="text-gray-500 text-lg uppercase tracking-wider font-semibold">Expense</h4>
-                <h1 className={`text-4xl font-extrabold text-red-700`}>
-                ₱{expense}
-                </h1>
+
+            {/* Expense */}
+            <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-5 flex flex-col justify-center">
+                <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">Expense</span>
+                <h2 className="text-xl font-bold text-red-400">
+                    -₱{expense}
+                </h2>
             </div>
         </div>
     )
-    }
+}
 
 export default Balance

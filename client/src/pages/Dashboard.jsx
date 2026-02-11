@@ -1,6 +1,7 @@
 import AddTransaction from "../components/AddTransaction";
 import Balance from "../components/Balance";
 import TransactionModal from "../components/TransactionModal";
+import TransactionList from "../components/TransactionList";
 import { useState } from "react";
 
 const Dashboard = () => {
@@ -9,7 +10,7 @@ const Dashboard = () => {
 
     return (
         <div className="max-w-4xl">
-            <h1 className="text-2xl font-bold text-white">Allowance Tracker</h1>
+            <h1 className="text-2xl font-bold text-white mb-6">Allowance Tracker</h1>
             <Balance />
             <div className="flex gap-4 mb-6">
                 <button
@@ -26,6 +27,7 @@ const Dashboard = () => {
                 </button>
             </div>
             <TransactionModal isOpen={modalOpen} onClose={() => setModalOpen(false)} type={modalType} />
+            <TransactionList />
         </div>
     );
 };

@@ -113,8 +113,8 @@ const TransactionModal = ({ isOpen, onClose, type }) => {
                     <button
                         type="submit"
                         className={`w-full py-3 rounded-lg font-bold text-white mt-2 cursor-pointer transition-colors ${isExpense
-                                ? 'bg-red-600 hover:bg-red-700'
-                                : 'bg-green-600 hover:bg-green-700'
+                            ? 'bg-red-600 hover:bg-red-700'
+                            : 'bg-green-600 hover:bg-green-700'
                             }`}
                     >
                         {isExpense ? 'Add Expense' : 'Add Income'}
