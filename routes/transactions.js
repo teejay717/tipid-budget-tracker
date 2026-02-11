@@ -3,6 +3,7 @@ const router = express.Router();
 
 import Transaction from '../models/Transaction.js';
 
+// get all transactions
 router.get('/', async (req, res) => {
     try {
         const transactions = await Transaction.find().sort({ date: -1 });
@@ -19,6 +20,8 @@ router.get('/', async (req, res) => {
     }
 })
 
+
+// add single transaction
 router.post('/', async (req, res) => {
     try {
         // do this to check if there is an input ( Input Validation )
@@ -48,6 +51,45 @@ router.post('/', async (req, res) => {
         return res.status(500).json({
             success: false,
             error: 'Server Error'
+        })
+    }
+})
+
+// delete single transaction
+router.delete('/:id', async (req, res) => {
+    
+    try {
+        const { id } = req.params;
+        const transaction = await Transaction.findByIdAndDelete(id);
+
+        if (!transaction) {
+            return res.status(404).json({msg: 'Transaction not found!'})
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Successfully deleted transaction'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message: error.message})
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    
+    try {
+        const transaction = await Transaction.deleteMany({});
+
+        return res.status(200).json({
+            success: true,
+            message: 'Successfully deleted all transactions',
+            data: []
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: 'Server error'
         })
     }
 })
