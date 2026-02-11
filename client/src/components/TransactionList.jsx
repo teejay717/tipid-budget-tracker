@@ -3,7 +3,7 @@ import { GlobalContext } from '../context/GlobalState';
 
 const TransactionList = () => {
 
-    const { transactions, getTransactions, deleteTransactions, clearTransactions } = useContext(GlobalContext);
+    const { transactions, getTransactions, deleteTransaction, clearTransactions } = useContext(GlobalContext);
 
     useEffect(() => {
         getTransactions();
