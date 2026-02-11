@@ -86,14 +86,25 @@ const TransactionModal = ({ isOpen, onClose, type }) => {
                     {isExpense && (
                         <div>
                             <label className="block text-gray-400 text-sm font-medium mb-1">Category</label>
-                            <input
+                            <select 
+                            value={category} 
+                            onChange={(e) => setCategory(e.target.value)} 
+                            required
+
+                            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                <option value={null}>Select category</option>
+                                <option value="Food">Food</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="School">School</option>
+                            </select>
+                            {/* <input
                                 type="text"
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                                 placeholder="e.g. Food, Transport"
                                 required
                                 className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-                            />
+                            /> */}
                         </div>
                     )}
 

@@ -18,7 +18,7 @@ const TransactionList = () => {
                 {transactions.length > 0 && (
                     <button
                         onClick={clearTransactions}
-                        className="text-xs text-red-500 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                        className="text-xs text-gray-500 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer"
                     >
                         Clear All
                     </button>
@@ -65,7 +65,7 @@ const TransactionList = () => {
                             {/* Delete button — slides in from the right */}
                             <button
                                 onClick={() => deleteTransaction(transaction._id)}
-                                className=" text-white w-8 flex items-center justify-center  transition-transform duration-200 cursor-pointer p-1 rounded-lg hover:bg-gray-500"
+                                className=" text-white w-8 flex items-center justify-center duration-200 cursor-pointer p-1 rounded-lg transition-all hover:bg-gray-700"
                             >
                                 <MdDeleteOutline className="text-lg text-gray-600 hover:text-red-500" />
                             </button>
