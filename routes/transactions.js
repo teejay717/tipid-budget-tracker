@@ -76,10 +76,11 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+// delete all
+router.delete('/', async (req, res) => {
     
     try {
-        const transaction = await Transaction.deleteMany({});
+        await Transaction.deleteMany({});
 
         return res.status(200).json({
             success: true,
