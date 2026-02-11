@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { MdCallMade, MdCallReceived, MdDeleteOutline } from 'react-icons/md';
+import ConfirmModal from './ConfirmModal';
 
 
 const TransactionList = () => {
-
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const { transactions, getTransactions, deleteTransaction, clearTransactions } = useContext(GlobalContext);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const TransactionList = () => {
                 <h3 className="text-lg font-bold text-gray-400">History</h3>
                 {transactions.length > 0 && (
                     <button
-                        onClick={clearTransactions}
+                        onClick={() => setShowConfirmModal(true)}
                         className="text-xs text-gray-500 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer"
                     >
                         Clear All
@@ -74,6 +75,14 @@ const TransactionList = () => {
                 })}
             </ul>
 
+            {/* Confirmation Modal */}
+            <ConfirmModal
+                isOpen={showConfirmModal}
+                onClose={() => setShowConfirmModal(false)}
+                onConfirm={clearTransactions}
+                title="Clear All Transactions"
+                message="Are you sure you want to delete all transactions? This action cannot be undone."
+            />
         </div>
     )
 }
