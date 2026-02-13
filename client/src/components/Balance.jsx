@@ -7,18 +7,31 @@ const Balance = () => {
     const { transactions } = useContext(GlobalContext)
 
     const amounts = transactions.map(transaction => transaction.amount)
-    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const totalAmount = amounts.reduce((acc, item) => (acc += item), 0);
+    const total = totalAmount.toLocaleString(undefined, { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+    });
 
-    const income = amounts
+    const incomeTotal = amounts
         .filter(item => item > 0)
-        .reduce((acc, item) => (acc += item), 0)
-        .toFixed(2);
+        .reduce((acc, item) => (acc += item), 0);
 
-    const expense = (
+    const income = incomeTotal.toLocaleString(undefined, { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+    });
+
+    const expenseTotal = (
         amounts
             .filter(item => item < 0)
             .reduce((acc, item) => (acc += item), 0) * -1
-    ).toFixed(2);
+    );
+
+    const expense = expenseTotal.toLocaleString(undefined, { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+    });
 
     return (
         <div className="grid grid-cols-3 gap-4 mb-6">
@@ -45,7 +58,7 @@ const Balance = () => {
             <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-5 flex flex-col justify-center">
                 <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">Expense</span>
                 <h2 className="text-xl font-bold text-red-400">
-                    -₱{expense}
+                    -₱{expense == -0.00 ? '0.00' : expense}
                 </h2>
             </div>
         </div>
