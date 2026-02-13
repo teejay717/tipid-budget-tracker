@@ -68,6 +68,28 @@ export const GlobalProvider = ({children}) => {
             console.error({message: err.message})
         }
     }
+    async function updateTransaction(id, transaction) {
+        const config = {
+            headers: {
+            "Content-Type": "application/json"
+            }
+        }
+
+        try {
+            const res = await axios.put(`http://localhost:5000/api/transactions/${id}`, transaction, config)
+
+            dispatch({
+                type: 'UPDATE_TRANSACTION',
+                payload: res.data.data
+            })
+        } catch (error) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: err.response.data.error
+            })
+            console.error({message: err.message})
+        }
+    }
 
     async function clearTransactions() {
         try {
@@ -92,6 +114,7 @@ export const GlobalProvider = ({children}) => {
             getTransactions,
             deleteTransaction,
             addTransaction,
+            updateTransaction,
             clearTransactions
         }}>
             {children}

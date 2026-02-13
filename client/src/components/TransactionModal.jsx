@@ -1,38 +1,68 @@
 import React, { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdDelete, MdDeleteOutline } from 'react-icons/md';
 
-const TransactionModal = ({ isOpen, onClose, type }) => {
+const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
     const [text, setText] = useState('');
     const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
-    const { addTransaction } = useContext(GlobalContext);
-
+    const { addTransaction, updateTransaction, deleteTransaction } = useContext(GlobalContext);
+    
+    React.useEffect(() => {
+        if (existingTransaction) {
+            setText(existingTransaction.text);
+            setAmount(Math.abs(existingTransaction.amount));
+            setCategory(existingTransaction.category);
+            setDate(new Date(existingTransaction.date).toISOString().split('T')[0]);
+        } else {
+            if (isOpen) {
+                setText('');
+                setAmount('');
+                setCategory('');
+                setDate(new Date().toISOString().split('T')[0]);
+            }
+        }
+    }, [existingTransaction, isOpen])
+    
     if (!isOpen) return null;
-
-    const isExpense = type === 'expense';
+    
+    const isExpense = type === 'expense'|| existingTransaction && existingTransaction.amount < 0;
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newTransaction = {
+        const transactionData = {
             text,
-            amount: isExpense ? -Math.abs(+amount) : Math.abs(+amount),
+            amount: (type === 'expense' || (existingTransaction && existingTransaction.amount < 0)) 
+                ? -Math.abs(+amount) 
+                : Math.abs(+amount),
             category: isExpense ? category : '',
             date
         };
 
-        addTransaction(newTransaction);
+        if (existingTransaction) {
+            updateTransaction(existingTransaction._id, transactionData)
+        } else {
+            addTransaction(transactionData);
+        }
 
         // Reset fields
         setText('');
         setAmount('');
         setCategory('');
         setDate(new Date().toISOString().split('T')[0]);
+
         onClose();
     };
+
+    const handleDelete = () => {
+        if (window.confirm('Are you sure you want to delete this transaction?')) {
+        deleteTransaction(existingTransaction._id);
+        onClose();
+    }
+    }
 
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={onClose}>
@@ -121,15 +151,27 @@ const TransactionModal = ({ isOpen, onClose, type }) => {
                     </div>
 
                     {/* Submit */}
-                    <button
-                        type="submit"
-                        className={`w-full py-3 rounded-lg font-bold text-white mt-2 cursor-pointer transition-colors ${isExpense
-                            ? 'bg-red-600 hover:bg-red-700'
-                            : 'bg-green-600 hover:bg-green-700'
-                            }`}
-                    >
-                        {isExpense ? 'Add Expense' : 'Add Income'}
-                    </button>
+                    <div className='flex flex-row gap-2'>
+                        <button
+                            type="submit"
+                            className={`flex-1 py-3 rounded-lg font-bold text-white mt-2 cursor-pointer transition-colors ${existingTransaction ? 'bg-gray-800 border-gray-700 border-1 hover:bg-gray-700' : (isExpense
+                                ? 'bg-red-600 hover:bg-red-700'
+                                : 'bg-green-600 hover:bg-green-700'
+    )}`}
+                        >
+                            {existingTransaction ? 'Edit Transaction' : (isExpense ? 'Add Expense' : 'Add Income')}
+                        </button>
+                        {existingTransaction && (
+                            <button
+                            type="button"
+                            onClick={handleDelete}
+                            className="bg-gray-800 border-gray-700 border-1 hover:bg-red-700 text-white p-4 mt-2 rounded-lg transition-colors flex items-center justify-center cursor-pointer"
+                            title="Delete Transaction"
+                        >
+                            <MdDeleteOutline className="text-xl" />
+                        </button>
+                        )}
+                    </div>
                 </form>
             </div>
         </div>

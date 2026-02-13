@@ -21,6 +21,12 @@ export default (state, action) => {
                 ...state,
                 transactions: []
             }
+        case 'UPDATE_TRANSACTION':
+            return {
+                ...state,
+                transactions: state.transactions.map(transaction => 
+                    transaction._id === action.payload._id ? action.payload : transaction)
+            }
         case 'TRANSACTION_ERROR':
             return {
                 ...state,

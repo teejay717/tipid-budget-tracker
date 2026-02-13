@@ -1,12 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
-import { MdCallMade, MdCallReceived, MdDeleteOutline } from 'react-icons/md';
+import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 import ConfirmModal from './ConfirmModal';
 import { formatNumber } from '../utils/format.js';
+import TransactionModal from "../components/TransactionModal";
 
 const TransactionList = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const { transactions, getTransactions, deleteTransaction, clearTransactions } = useContext(GlobalContext);
+    const { transactions, getTransactions, deleteTransaction, clearTransactions, updateTransaction } = useContext(GlobalContext);
+
+    const [editingTransaction, setEditingTransaction] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleEditClick = (transaction) => {
+        setEditingTransaction(transaction);
+        setIsModalOpen(true)
+    }
 
     useEffect(() => {
         getTransactions();
@@ -70,10 +79,23 @@ const TransactionList = () => {
                             >
                                 <MdDeleteOutline className="text-lg text-gray-600 hover:text-red-500" />
                             </button>
+                            <button
+                                onClick={() => handleEditClick(transaction)}
+                                className=" text-white w-8 flex items-center justify-center duration-200 cursor-pointer p-1 rounded-lg transition-all hover:bg-gray-700"
+                            >
+                                <MdEdit className="text-lg text-gray-600 hover:text-red-500" />
+                            </button>
                         </li>
                     )
                 })}
             </ul>
+            
+            <TransactionModal 
+                isOpen={isModalOpen} 
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setEditingTransaction(null)}} 
+                existingTransaction={editingTransaction}/>
 
             {/* Confirmation Modal */}
             <ConfirmModal
