@@ -151,21 +151,21 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
                     </div>
 
                     {/* Submit */}
-                    <div className='flex flex-row gap-2'>
+                    <div className='flex flex-row gap-2 mt-4'>
                         <button
                             type="submit"
-                            className={`flex-1 py-3 rounded-lg font-bold text-white mt-2 cursor-pointer transition-colors ${existingTransaction ? 'bg-gray-800 border-gray-700 border-1 hover:bg-gray-700' : (isExpense
+                            className={`flex-1 py-3 rounded-lg font-bold text-white cursor-pointer transition-colors ${existingTransaction ? 'bg-indigo-600 hover:bg-indigo-700 ' : (isExpense
                                 ? 'bg-red-600 hover:bg-red-700'
                                 : 'bg-green-600 hover:bg-green-700'
     )}`}
                         >
-                            {existingTransaction ? 'Edit Transaction' : (isExpense ? 'Add Expense' : 'Add Income')}
+                            {existingTransaction ? 'Save Changes' : (isExpense ? 'Add Expense' : 'Add Income')}
                         </button>
                         {existingTransaction && (
                             <button
                             type="button"
                             onClick={handleDelete}
-                            className="bg-gray-800 border-gray-700 border-1 hover:bg-red-700 text-white p-4 mt-2 rounded-lg transition-colors flex items-center justify-center cursor-pointer"
+                            className="bg-gray-800 border-gray-700 border hover:bg-red-700 text-white p-4 rounded-lg transition-colors flex items-center justify-center cursor-pointer"
                             title="Delete Transaction"
                         >
                             <MdDeleteOutline className="text-xl" />
