@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState'
 import { MdAccountBalanceWallet } from 'react-icons/md'
+import { formatNumber } from '../utils/format.js'
 
 const Balance = () => {
 
@@ -8,19 +9,13 @@ const Balance = () => {
 
     const amounts = transactions.map(transaction => transaction.amount)
     const totalAmount = amounts.reduce((acc, item) => (acc += item), 0);
-    const total = totalAmount.toLocaleString(undefined, { 
-        minimumFractionDigits: 2, 
-        maximumFractionDigits: 2 
-    });
+    const total = formatNumber(totalAmount)
 
     const incomeTotal = amounts
         .filter(item => item > 0)
         .reduce((acc, item) => (acc += item), 0);
 
-    const income = incomeTotal.toLocaleString(undefined, { 
-        minimumFractionDigits: 2, 
-        maximumFractionDigits: 2 
-    });
+    const income = formatNumber(incomeTotal)
 
     const expenseTotal = (
         amounts
@@ -28,10 +23,7 @@ const Balance = () => {
             .reduce((acc, item) => (acc += item), 0) * -1
     );
 
-    const expense = expenseTotal.toLocaleString(undefined, { 
-        minimumFractionDigits: 2, 
-        maximumFractionDigits: 2 
-    });
+    const expense = formatNumber(expenseTotal)
 
     return (
         <div className="grid grid-cols-3 gap-4 mb-6">

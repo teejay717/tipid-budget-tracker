@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { MdCallMade, MdCallReceived, MdDeleteOutline } from 'react-icons/md';
 import ConfirmModal from './ConfirmModal';
-
+import { formatNumber } from '../utils/format.js';
 
 const TransactionList = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -60,7 +60,7 @@ const TransactionList = () => {
 
                             {/* Amount */}
                             <span className={`font-bold ${textColor} whitespace-nowrap`}>
-                                {sign}₱{Math.abs(transaction.amount).toFixed(2)}
+                                {sign}₱{formatNumber(Math.abs(transaction.amount))}
                             </span>
 
                             {/* Delete button — slides in from the right */}
