@@ -95,4 +95,26 @@ router.delete('/', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const transaction = await Transaction.findByIdAndUpdate(id, req.body);
+
+        if (!transaction) {
+            return res.status(404).json({msg: 'Transaction not found!'})
+        }
+
+        const updatedTransaction = await Transaction.findById(id);
+        return res.status(200).json({
+            success: true,
+            data: updatedTransaction
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: 'Server error'
+        })
+    }
+})
+
 export default router;

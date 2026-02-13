@@ -16,6 +16,7 @@ app.use(cors());
 
 app.use('/api/transactions', transactions)
 app.delete('/api/transactions/:id', transactions)
+app.put('/api/transactions/:id', transactions)
 
 app.get('/', (req, res) => {
     res.json({msg: 'Budget Tracker Backend is running!'});
