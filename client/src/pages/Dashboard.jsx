@@ -2,6 +2,7 @@ import AddTransaction from "../components/AddTransaction";
 import Balance from "../components/Balance";
 import TransactionModal from "../components/TransactionModal";
 import TransactionList from "../components/TransactionList";
+import ExpenseChart from "../components/ExpenseChart";
 import { useState } from "react";
 
 const Dashboard = () => {
@@ -28,6 +29,7 @@ const Dashboard = () => {
             </div>
             <TransactionModal isOpen={modalOpen} onClose={() => setModalOpen(false)} type={modalType} />
             <TransactionList />
+            <ExpenseChart />
         </div>
     );
 };
