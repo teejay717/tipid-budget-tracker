@@ -41,24 +41,28 @@ const ExpenseChart = () => {
         }
     })
 
+    const COLORS = [
+        "hsl(350, 89%, 60%)",
+        "hsl(25, 95%, 53%)",
+        "hsl(43, 100%, 50%)",
+        "hsl(280, 75%, 60%)",
+        "hsl(320, 80%, 60%)",
+    ]
+
+    const chartConfig = { amount: { label: "Amount" } };
+
+    Object.keys(totalCategory).forEach((keyName, index) => {
+        chartConfig[keyName] = {
+            label: keyName,
+            color: COLORS[index % COLORS.length],
+        }
+    })
+
     const chartData = Object.keys(totalCategory).map(keyName => {
         return {
             name: keyName,
             amount: totalCategory[keyName],
-            fill: `var(--color-${keyName})`
-        }
-    })
-
-    const chartConfig = {
-    amount: {
-        label: "Amount",
-    },
-};
-
-    chartData.forEach((item, index) => {
-        chartConfig[item.name] = {
-            label: item.name,
-            color: `var(--chart-${(index % 5) + 1})`,
+            fill: chartConfig[keyName].color,
         }
     })
 
@@ -74,12 +78,23 @@ const ExpenseChart = () => {
         <div>
             <ChartContainer
                 config={chartConfig}
-                className="mx-auto aspect-square max-h-[250px]"
+                className="mx-auto aspect-square max-h-[300px]"
             >
             <PieChart>
             <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent hideLabel />}
+                content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                        const { name, amount } = payload[0].payload;
+                        return (
+                            <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '8px 12px' }}>
+                                <p style={{ color: payload[0].payload.fill, fontWeight: 'bold', margin: 0 }}>{name}</p>
+                                <p style={{ color: 'white', margin: 0 }}>₱{amount.toLocaleString()}</p>
+                            </div>
+                        );
+                    }
+                    return null;
+                }}
             />
             <Pie
                 data={chartData}
@@ -101,14 +116,14 @@ const ExpenseChart = () => {
                         <tspan
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            className="fill-foreground text-3xl font-bold"
+                            style={{ fill: 'oklch(0.985 0 0)', fontSize: '1.5rem', fontWeight: 'bold' }}
                             >
                             {totalExpenses.toLocaleString()}
                         </tspan>
                         <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 24}
-                            className="fill-muted-foreground"
+                            style={{ fill: 'oklch(0.708 0 0)' }}
                         >
                             Expenses
                         </tspan>

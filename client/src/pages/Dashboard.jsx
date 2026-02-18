@@ -10,7 +10,7 @@ const Dashboard = () => {
     const [modalType, setModalType] = useState('income');
 
     return (
-        <div className="max-w-4xl">
+        <div className="max-w-6xl">
             <h1 className="text-2xl font-bold text-white mb-6">Allowance Tracker</h1>
             <Balance />
             <div className="flex gap-4 mb-6">
@@ -28,8 +28,14 @@ const Dashboard = () => {
                 </button>
             </div>
             <TransactionModal isOpen={modalOpen} onClose={() => setModalOpen(false)} type={modalType} />
-            <TransactionList />
-            <ExpenseChart />
+            <div className="flex gap-6 items-start">
+                <div className="flex-1">
+                    <TransactionList />
+                </div>
+                <div className="w-72 shrink-0">
+                    <ExpenseChart />
+                </div>
+            </div>
         </div>
     );
 };
