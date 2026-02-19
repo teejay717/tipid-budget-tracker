@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
+import { useNavigate } from 'react-router-dom';
 
 import {
     Card,
@@ -24,7 +25,7 @@ export const description = "A donut chart with text"
 const ExpenseChart = () => {
 
     const { transactions } = useContext(GlobalContext);
-    
+    const navigate = useNavigate();    
     const expenses = transactions.filter(transaction => transaction.amount < 0);
 
     const totalCategory = {};
@@ -66,7 +67,6 @@ const ExpenseChart = () => {
         }
     })
 
-    console.log(chartData)
     
     // We will do our math here!
 
@@ -82,7 +82,7 @@ const ExpenseChart = () => {
             >
             <PieChart>
             <ChartTooltip
-                cursor={false}
+                cursor={false}a
                 content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                         const { name, amount } = payload[0].payload;
@@ -102,6 +102,9 @@ const ExpenseChart = () => {
                 nameKey="name"
                 innerRadius={60}
                 strokeWidth={5}
+                onClick={(sliceData) => {
+                    navigate(`/history?category=${sliceData.name}`)
+                }}
             >
                 <Label
                 content={({ viewBox }) => {

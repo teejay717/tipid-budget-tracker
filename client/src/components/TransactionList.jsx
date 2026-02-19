@@ -21,6 +21,8 @@ const TransactionList = () => {
         getTransactions();
     }, [])
 
+    console.log(transactions)
+
     return (
         <div className='mb-8'>
             <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
