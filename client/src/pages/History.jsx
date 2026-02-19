@@ -17,16 +17,17 @@ const History = () => {
     const [searchParams] = useSearchParams();
     const { transactions, getTransactions } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
-    const [typeCategory, setTypeCategory] = useState("allCategories")
-    const categoryParams = searchParams.get("category")
+    const [typeCategory, setTypeCategory] = useState(searchParams.get("category") || "allCategories")
 
+    console.log(typeFilter)
+    console.log(typeCategory)
 
     const displayedTransactions = transactions.filter(t => {
         const matchesType = typeFilter === "all" ? transactions : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
         const matchesCategory = typeCategory === "allCategories" ? transactions :  
-        typeCategory || categoryParams === "Food" ? t.category === typeCategory || categoryParams : 
-        typeCategory || categoryParams === "Transportation" ? t.category === typeCategory || categoryParams : 
-        typeCategory || categoryParams === "School" ? t.category === typeCategory || categoryParams : true;
+        typeCategory === "Food" ? t.category === typeCategory : 
+        typeCategory === "Transportation" ? t.category === typeCategory : 
+        typeCategory === "School" ? t.category === typeCategory : true;
         return matchesType && matchesCategory;
     }
     )
@@ -35,8 +36,7 @@ const History = () => {
         getTransactions()
     }, [])
 
-    console.log(typeFilter)
-    console.log(typeCategory)
+    
     return (
         <div className="max-w-4xl">
             <h1 className="text-2xl font-bold text-white mb-6">History</h1>
