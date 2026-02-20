@@ -14,20 +14,29 @@ import {
 } from "@/components/ui/select"
 
 const History = () => {
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { transactions, getTransactions } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
-    const [typeCategory, setTypeCategory] = useState(searchParams.get("category") || "allCategories")
+    const typeCategory = searchParams.get("category") || "allCategories";
 
     console.log(typeFilter)
     console.log(typeCategory)
 
+    const uniqueCategories = [...new Set(transactions.map(t => t.category).filter(Boolean))]
+
+    const handleCategoryChange = (newValue) => {
+        const newParams = new URLSearchParams(searchParams);
+        if (newValue === "allCategories") {
+            newParams.delete("category")
+        } else {
+            newParams.set("category", newValue)
+        }
+        setSearchParams(newParams);
+    }
+
     const displayedTransactions = transactions.filter(t => {
-        const matchesType = typeFilter === "all" ? transactions : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
-        const matchesCategory = typeCategory === "allCategories" ? transactions :  
-        typeCategory === "Food" ? t.category === typeCategory : 
-        typeCategory === "Transportation" ? t.category === typeCategory : 
-        typeCategory === "School" ? t.category === typeCategory : true;
+        const matchesType = typeFilter === "all" ? true : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
+        const matchesCategory = typeCategory === "allCategories" ? true : t.category === typeCategory
         return matchesType && matchesCategory;
     }
     )
@@ -53,16 +62,16 @@ const History = () => {
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                <Select value={typeCategory} onValueChange={setTypeCategory}>
+                <Select value={typeCategory} onValueChange={handleCategoryChange}>
                     <SelectTrigger className="w-full max-w-48 text-white">
                         <SelectValue placeholder="All Types" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectItem value="allCategories" onValueChange={setTypeCategory}>All Categories</SelectItem>
-                            <SelectItem value="Food" onValueChange={setTypeCategory}>Food</SelectItem>
-                            <SelectItem value="Transportation" onValueChange={setTypeCategory}>Transportation</SelectItem>
-                            <SelectItem value="School" onValueChange={setTypeCategory}>School</SelectItem>
+                            <SelectItem value="allCategories" onValueChange={handleCategoryChange}>All Categories</SelectItem>
+                            {uniqueCategories.map(cat => (
+                                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                            ))}
                         </SelectGroup>
                     </SelectContent>
                 </Select>
