@@ -8,13 +8,13 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
     const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
-    const { addTransaction, updateTransaction, deleteTransaction } = useContext(GlobalContext);
+    const { addTransaction, updateTransaction, deleteTransaction, categories, getCategories } = useContext(GlobalContext);
     
     React.useEffect(() => {
         if (existingTransaction) {
             setText(existingTransaction.text);
             setAmount(Math.abs(existingTransaction.amount));
-            setCategory(existingTransaction.category);
+            setCategory(existingTransaction.category?._id ?? existingTransaction.category);
             setDate(new Date(existingTransaction.date).toISOString().split('T')[0]);
         } else {
             if (isOpen) {
@@ -25,6 +25,10 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
             }
         }
     }, [existingTransaction, isOpen])
+
+    React.useEffect(() => {
+        getCategories();
+    }, [])
     
     if (!isOpen) return null;
     
@@ -123,9 +127,9 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
 
                             className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                                 <option value={null}>Select category</option>
-                                <option value="Food">Food</option>
-                                <option value="Transportation">Transportation</option>
-                                <option value="School">School</option>
+                                {categories.map((cat) => (
+                                    <option key={cat._id} value={cat._id}>{cat.text}</option>
+                                ))}
                             </select>
                             {/* <input
                                 type="text"
