@@ -26,11 +26,11 @@ const TransactionList = () => {
     return (
         <div className='mb-8'>
             <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
-                <h3 className="text-lg font-bold text-gray-400">History</h3>
+                <h3 className="text-lg font-bold text-gray-400">Recent</h3>
                 {transactions.length > 0 && (
                     <button
                         onClick={() => setShowConfirmModal(true)}
-                        className="text-xs text-gray-500 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                        className="text-xs text-gray-600/80 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer"
                     >
                         Clear All
                     </button>

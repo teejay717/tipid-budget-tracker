@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 const PORT = process.env.PORT || 5000;
 
 import transactions from './routes/transactions.js'
+import category from './routes/category.js'
 
 dotenv.config();
 connectDB();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use('/api/transactions', transactions)
 app.delete('/api/transactions/:id', transactions)
 app.put('/api/transactions/:id', transactions)
+app.use('/api/categories', category)
 
 app.get('/', (req, res) => {
     res.json({msg: 'Budget Tracker Backend is running!'});
