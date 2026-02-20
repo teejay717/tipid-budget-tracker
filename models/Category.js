@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
 
 const CategorySchema = new mongoose.Schema({
-    category: {
+    text: {
         type: String,
         trim: true,
         required: [true, 'Please add some text']
     },
     color: {
-        type: Number,
-        required: [true, 'Please add a positive or negative number']
+        type: String,
+        default: '#3b82f6',
+        required: true
     },
     createdAt: {
         type: Date,
