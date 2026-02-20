@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const initialState = {
     transactions: [],
+    categories: [],
     error: null,
     loading: true
 }
@@ -106,16 +107,34 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    async function getCategories() {
+        try {
+            const res = await axios.get('http://localhost:5000/api/categories')
+
+            dispatch({
+                type: 'GET_CATEGORIES',
+                payload: res.data.data
+            })
+        } catch (err) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: err.response.data.error
+            })
+        }
+    }
+
     return (
         <GlobalContext.Provider value={{
             transactions: state.transactions,
+            categories: state.categories,
             error: state.error,
             loading: state.loading,
             getTransactions,
             deleteTransaction,
             addTransaction,
             updateTransaction,
-            clearTransactions
+            clearTransactions,
+            getCategories
         }}>
             {children}
         </GlobalContext.Provider>

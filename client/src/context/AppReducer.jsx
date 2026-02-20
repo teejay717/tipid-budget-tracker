@@ -32,6 +32,12 @@ export default (state, action) => {
                 ...state,
                 error: action.payload
             }
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                loading: false,
+                categories: action.payload
+            }
         default:
             return state
     }
