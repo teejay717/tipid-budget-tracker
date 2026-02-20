@@ -15,10 +15,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+//transactions
 app.use('/api/transactions', transactions)
 app.delete('/api/transactions/:id', transactions)
 app.put('/api/transactions/:id', transactions)
+
+// categories
 app.use('/api/categories', category)
+app.delete('/api/categories/:id', category)
 
 app.get('/', (req, res) => {
     res.json({msg: 'Budget Tracker Backend is running!'});

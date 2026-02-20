@@ -64,7 +64,7 @@ export const GlobalProvider = ({children}) => {
         } catch (err) {
             dispatch({
                 type: 'TRANSACTION_ERROR',
-                payload: err.res.data.error
+                payload: err.response.data.error
             })
             console.error({message: err.message})
         }
@@ -83,7 +83,7 @@ export const GlobalProvider = ({children}) => {
                 type: 'UPDATE_TRANSACTION',
                 payload: res.data.data
             })
-        } catch (error) {
+        } catch (err) {
             dispatch({
                 type: 'TRANSACTION_ERROR',
                 payload: err.response.data.error
@@ -121,9 +121,41 @@ export const GlobalProvider = ({children}) => {
                 payload: err.response.data.error
             })
         }
-        getTransactions();
     }
 
+    async function addCategory(category) {
+        const config = {
+            headers: {
+            "Content-Type": "application/json"
+            }
+        }
+        try {
+            const res = await axios.post('http://localhost:5000/api/categories', category, config)
+
+            dispatch({
+                type: 'ADD_CATEGORY',
+                payload: res.data.data
+            })
+        } catch (error) {
+            
+        }
+    }
+    
+    async function deleteCategory(id) {
+        try {
+            const res = await axios.delete(`http://localhost:5000/api/categories/${id}`)
+
+            dispatch({
+                type: 'DELETE_CATEGORY',
+                payload: id
+            })
+        } catch (err) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: err.response.data.error
+            })
+        }
+    }
     return (
         <GlobalContext.Provider value={{
             transactions: state.transactions,
@@ -135,7 +167,9 @@ export const GlobalProvider = ({children}) => {
             addTransaction,
             updateTransaction,
             clearTransactions,
-            getCategories
+            getCategories,
+            addCategory,
+            deleteCategory
         }}>
             {children}
         </GlobalContext.Provider>

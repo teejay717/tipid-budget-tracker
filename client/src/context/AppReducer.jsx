@@ -14,8 +14,7 @@ export default (state, action) => {
         case 'ADD_TRANSACTION':
             return {
                 ...state,
-                transactions: [...state.transactions, action.payload],
-                categories: [...state.categories, action.payload]
+                transactions: [...state.transactions, action.payload]
             }
         case 'CLEAR_TRANSACTIONS':
             return {
@@ -38,6 +37,16 @@ export default (state, action) => {
                 ...state,
                 loading: false,
                 categories: action.payload
+            }
+        case 'ADD_CATEGORY':
+            return {
+                ...state,
+                categories: [...state.categories, action.payload]
+            }
+        case 'DELETE_CATEGORY':
+            return {
+                ...state,
+                categories: state.categories.filter(category => category._id != action.payload)
             }
         default:
             return state

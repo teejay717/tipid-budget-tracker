@@ -42,9 +42,12 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
             amount: (type === 'expense' || (existingTransaction && existingTransaction.amount < 0)) 
                 ? -Math.abs(+amount) 
                 : Math.abs(+amount),
-            category: isExpense ? category : '',
             date
         };
+
+        if (isExpense) {
+            transactionData.category = category
+        }
 
         if (existingTransaction) {
             updateTransaction(existingTransaction._id, transactionData)
@@ -126,7 +129,7 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
                             required
 
                             className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                                <option value={null}>Select category</option>
+                                <option value="">Select category</option>
                                 {categories.map((cat) => (
                                     <option key={cat._id} value={cat._id}>{cat.text}</option>
                                 ))}
