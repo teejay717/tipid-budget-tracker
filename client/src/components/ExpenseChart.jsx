@@ -76,9 +76,12 @@ const ExpenseChart = () => {
 
     return (
         <div>
+            <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
+                <h3 className="text-lg font-bold text-gray-500">Expenses by Category</h3>
+            </div>
             <ChartContainer
                 config={chartConfig}
-                className="mx-auto aspect-square max-h-[300px]"
+                className="mx-auto aspect-square max-h-[300px] rounded-xl border border-gray-800 bg-gray-900/60"
             >
             <PieChart>
             <ChartTooltip
@@ -121,7 +124,7 @@ const ExpenseChart = () => {
                             y={viewBox.cy}
                             style={{ fill: 'oklch(0.985 0 0)', fontSize: '1.5rem', fontWeight: 'bold' }}
                             >
-                            {totalExpenses.toLocaleString()}
+                            -₱{totalExpenses.toLocaleString()}
                         </tspan>
                         <tspan
                             x={viewBox.cx}

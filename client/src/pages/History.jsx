@@ -15,7 +15,7 @@ import {
 
 const History = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { transactions, getTransactions } = useContext(GlobalContext);
+    const { transactions, getTransactions, deleteTransaction } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
     const typeCategory = searchParams.get("category") || "allCategories";
 

@@ -32,6 +32,7 @@ const Dashboard = () => {
                 <div className="flex-1">
                     <TransactionList />
                 </div>
+                
                 <div className="w-72 shrink-0">
                     <ExpenseChart />
                 </div>
