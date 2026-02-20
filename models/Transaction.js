@@ -11,8 +11,9 @@ const TransactionSchema = new mongoose.Schema({
         required: [true, 'Please add a positive or negative number']
     },
     category: {
-        type: String,
-        required: false
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: [true, 'Please select a category']
     },
     date: {
         type: Date,

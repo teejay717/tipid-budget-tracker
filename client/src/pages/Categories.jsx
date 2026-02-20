@@ -3,11 +3,12 @@ import { useContext, useEffect } from "react";
 import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 
 const Categories = () => {
-    const { categories, getCategories } = useContext(GlobalContext)
+    const { transactions, categories, getCategories } = useContext(GlobalContext)
 
     
 
     console.log(categories)
+    console.log(transactions)
 
     useEffect(()=> {
         getCategories();

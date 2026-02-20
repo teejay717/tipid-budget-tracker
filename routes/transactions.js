@@ -6,7 +6,9 @@ import Transaction from '../models/Transaction.js';
 // get all transactions
 router.get('/', async (req, res) => {
     try {
-        const transactions = await Transaction.find().sort({ date: -1 });
+        const transactions = await Transaction.find().
+        populate('category').
+        sort({ date: -1 });
         res.status(200).json({
             success: true,
             count: transactions.length,
@@ -34,7 +36,8 @@ router.post('/', async (req, res) => {
         }
 
         // this is what creates the data in mongodb
-        const transaction = await Transaction.create(req.body); // always send the request inside the create function to POST
+        const transaction = await Transaction.create(req.body);
+        await transaction.populate('category') // always send the request inside the create function to POST
         return res.status(201).json({
             success: true,
             data: transaction 
@@ -99,12 +102,14 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const transaction = await Transaction.findByIdAndUpdate(id, req.body);
+        
 
         if (!transaction) {
             return res.status(404).json({msg: 'Transaction not found!'})
         }
 
         const updatedTransaction = await Transaction.findById(id);
+        await updatedTransaction.populate('category')
         return res.status(200).json({
             success: true,
             data: updatedTransaction

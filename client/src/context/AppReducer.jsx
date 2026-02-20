@@ -14,7 +14,8 @@ export default (state, action) => {
         case 'ADD_TRANSACTION':
             return {
                 ...state,
-                transactions: [...state.transactions, action.payload]
+                transactions: [...state.transactions, action.payload],
+                categories: [...state.categories, action.payload]
             }
         case 'CLEAR_TRANSACTIONS':
             return {

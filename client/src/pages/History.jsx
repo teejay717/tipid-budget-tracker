@@ -22,7 +22,7 @@ const History = () => {
     console.log(typeFilter)
     console.log(typeCategory)
 
-    const uniqueCategories = [...new Set(transactions.map(t => t.category).filter(Boolean))]
+    const uniqueCategories = [...new Set(transactions.map(t => t.category.text).filter(Boolean))]
 
     const handleCategoryChange = (newValue) => {
         const newParams = new URLSearchParams(searchParams);
@@ -36,7 +36,7 @@ const History = () => {
 
     const displayedTransactions = transactions.filter(t => {
         const matchesType = typeFilter === "all" ? true : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
-        const matchesCategory = typeCategory === "allCategories" ? true : t.category === typeCategory
+        const matchesCategory = typeCategory === "allCategories" ? true : t.category.text === typeCategory
         return matchesType && matchesCategory;
     }
     )
@@ -99,10 +99,10 @@ const History = () => {
                                             <span className="font-medium text-white">{transaction.text}</span>
                                             <div className="flex items-center gap-1 text-xs text-gray-500">
                                                 <span>{new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                                                {transaction.category && (
+                                                {transaction.category.text && (
                                                     <>
                                                         <span>·</span>
-                                                        <span>{transaction.category}</span>
+                                                        <span>{transaction.category.text}</span>
                                                     </>
                                                 )}
                                             </div>

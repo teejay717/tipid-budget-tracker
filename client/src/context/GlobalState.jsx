@@ -121,6 +121,7 @@ export const GlobalProvider = ({children}) => {
                 payload: err.response.data.error
             })
         }
+        getTransactions();
     }
 
     return (

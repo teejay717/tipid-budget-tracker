@@ -60,10 +60,10 @@ const TransactionList = () => {
                                 <span className="font-medium text-white">{transaction.text}</span>
                                 <div className="flex items-center gap-1 text-xs text-gray-500">
                                     <span>{new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                                    {transaction.category && (
+                                    {transaction.category.text && (
                                         <>
                                             <span>·</span>
-                                            <span>{transaction.category}</span>
+                                            <span>{transaction.category.text}</span>
                                         </>
                                     )}
                                 </div>
