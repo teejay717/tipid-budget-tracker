@@ -8,6 +8,19 @@ const CategoryModal = ({ modalOpen, isOpen, onClose, existingCategory }) => {
 
     const { addCategory, deleteCategory } = useContext(GlobalContext);
 
+    const colors = [
+        "#ef4444", // Red
+        "#f97316", // Orange
+        "#eab308", // Yellow
+        "#22c55e", // Green
+        "#06b6d4", // Cyan/Teal
+        "#3b82f6", // Blue
+        "#6366f1", // Indigo
+        "#a855f7", // Purple
+        "#ec4899", // Pink
+        "#64748b"  // Slate/Gray
+    ];
+
     React.useEffect(() => {
         if (existingCategory) {
             setText(existingCategory.text);
@@ -73,12 +86,19 @@ const CategoryModal = ({ modalOpen, isOpen, onClose, existingCategory }) => {
                     {/* Color */}
                     <div>
                         <label className="block text-gray-400 text-sm font-medium mb-1">Color</label>
-                        <input
+                        {colors.map((hex) => (
+                            <button key={hex}
+                            type="button"
+                            onClick={() => setColor(hex)} 
+                            style={{ backgroundColor : hex }}
+                            className={`w-8 h-8 rounded-full border-2 hover:cursor-pointer mr-1 ${color === hex ? "border-white" : "border-transparent"}`}></button>
+                        ))}
+                        {/* <input
                             type="color"
                             value={color}
                             onChange={(e) => setColor(e.target.value)}
                             className="w-full h-12 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer"
-                        />
+                        /> */}
                     </div>
 
                     {/* Submit */}

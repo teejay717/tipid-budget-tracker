@@ -33,7 +33,7 @@ const ExpenseChart = () => {
 
     expenses.forEach(expense => {
         const getCategory = expense.category?._id;
-        const category = expense.category.text
+        const category = expense.category?.text
         const positiveAmount = Math.abs(expense.amount);
 
         if (!totalCategory[category]) {
