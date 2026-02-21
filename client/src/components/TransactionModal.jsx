@@ -80,7 +80,7 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-bold text-white">
-                        {isExpense ? '– Add Expense' : '+ Add Income'}
+                        {existingTransaction ? `Edit Transaction (${isExpense ? 'Expense' : 'Income'})` : (isExpense ? '- Add Expense' : '+ Add Income')}
                     </h2>
                     <button
                         onClick={onClose}

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context/GlobalState";
 import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 import { formatNumber } from '../utils/format.js';
+import TransactionModal from "@/components/TransactionModal.jsx";
 
 import {
     Select,
@@ -18,6 +19,14 @@ const History = () => {
     const { transactions, getTransactions, deleteTransaction } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
     const typeCategory = searchParams.get("category") || "allCategories";
+    
+    const [editingTransaction, setEditingTransaction] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleEditClick = (transaction) => {
+        setEditingTransaction(transaction);
+        setIsModalOpen(true)
+    }
 
     console.log(typeFilter)
     console.log(typeCategory)
@@ -132,6 +141,12 @@ const History = () => {
                                 )
                             })}
                         </ul>
+                        <TransactionModal 
+                        isOpen={isModalOpen} 
+                        onClose={() => {
+                        setIsModalOpen(false);
+                        setEditingTransaction(null)}} 
+                        existingTransaction={editingTransaction}/>
         </div>
     );
 };
