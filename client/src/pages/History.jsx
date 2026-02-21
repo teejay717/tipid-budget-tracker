@@ -101,7 +101,9 @@ const History = () => {
                                                 <span>{new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                                                 {transaction.category?.text && (
                                                     <>
-                                                        <span>·</span>
+                                                        <span></span>
+                                                        <div style={{ backgroundColor: transaction.category?.color}}
+                                                        className='p-0.5 rounded-full'></div>
                                                         <span>{transaction.category?.text}</span>
                                                     </>
                                                 )}
