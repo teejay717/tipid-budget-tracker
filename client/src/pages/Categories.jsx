@@ -16,17 +16,22 @@ const Categories = () => {
     
     return (
         <div className="max-w-4xl">
-            <h1 className="text-2xl font-bold text-white mb-6">Categories</h1>
-            <button className="text-white" onClick={() => {
-                setModalOpen(true)
-            }}>Add</button>
+            <div className="flex flex-row justify-between items-center mb-4">
+                <h1 className="text-2xl font-bold text-white">Categories</h1>
+                <button className="px-3 py-2 rounded-lg font-semibold text-green-400 hover:text-white bg-green-900/30 border border-green-800 
+                hover:bg-green-900/50 transition-colors cursor-pointer" onClick={() => {
+                    setModalOpen(true)
+                }}>+ Add</button>
+            </div>
             <ul className='flex flex-col gap-2'>
                                         {categories.map(category => {
                                             return (
                                                 <li key={category._id} className="bg-gray-900 p-3 rounded-lg flex items-center gap-3 group hover:bg-gray-800/80 transition duration-200 relative overflow-hidden">
                         
                                                     {/* Text & details */}
-                                                    <div className='flex flex-col flex-1 min-w-0'>
+                                                    <div className='flex flex-row flex-1 min-w-0 text-md gap-2'>
+                                                        <div style={{ backgroundColor: category?.color}}
+                                                        className='p-0.5 rounded-full'></div>
                                                         <span className="font-bold text-white">{category.text}</span>
                                                     </div>
                         
