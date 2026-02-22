@@ -93,12 +93,6 @@ const CategoryModal = ({ modalOpen, isOpen, onClose, existingCategory }) => {
                             style={{ backgroundColor : hex }}
                             className={`w-8 h-8 rounded-full border-2 hover:cursor-pointer mr-1 ${color === hex ? "border-white" : "border-transparent"}`}></button>
                         ))}
-                        {/* <input
-                            type="color"
-                            value={color}
-                            onChange={(e) => setColor(e.target.value)}
-                            className="w-full h-12 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer"
-                        /> */}
                     </div>
 
                     {/* Submit */}

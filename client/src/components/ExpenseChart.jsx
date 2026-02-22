@@ -35,36 +35,29 @@ const ExpenseChart = () => {
         const getCategory = expense.category?._id;
         const category = expense.category?.text
         const positiveAmount = Math.abs(expense.amount);
+        const color = expense.category?.color;
 
         if (!totalCategory[category]) {
-            totalCategory[category] = positiveAmount;
+            totalCategory[category] = {positiveAmount, color};
         } else {
-            totalCategory[category] += positiveAmount;
+            totalCategory[category].positiveAmount += positiveAmount;
         }
     })
 
-    const COLORS = [
-        "hsl(350, 89%, 60%)",
-        "hsl(25, 95%, 53%)",
-        "hsl(43, 100%, 50%)",
-        "hsl(280, 75%, 60%)",
-        "hsl(320, 80%, 60%)",
-    ]
-
     const chartConfig = { amount: { label: "Amount" } };
 
-    Object.keys(totalCategory).forEach((keyName, index) => {
+    Object.keys(totalCategory).forEach((keyName) => {
         chartConfig[keyName] = {
             label: keyName,
-            color: COLORS[index % COLORS.length],
+            color: totalCategory[keyName].color,
         }
     })
 
     const chartData = Object.keys(totalCategory).map(keyName => {
         return {
             name: keyName,
-            amount: totalCategory[keyName],
-            fill: chartConfig[keyName].color,
+            amount: totalCategory[keyName].positiveAmount,
+            fill: totalCategory[keyName].color,
         }
     })
 
