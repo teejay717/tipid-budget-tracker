@@ -20,7 +20,6 @@ app.use('/api/transactions', transactions)
 
 // categories
 app.use('/api/categories', category)
-app.delete('/api/categories/:id', category)
 
 app.get('/', (req, res) => {
     res.json({msg: 'Budget Tracker Backend is running!'});

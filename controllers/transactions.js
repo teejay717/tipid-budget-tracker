@@ -38,7 +38,6 @@ export const addTransaction = async (req, res) => {
             data: transaction 
         })
     } catch (error) {
-        console.log(error);
         // this logs the error, and checks if the error is Validation Error so it means that the fields arent filled properly.
         if (error.name === 'ValidationError') {
             return res.status(400).json({
@@ -68,7 +67,6 @@ export const deleteTransaction = async (req, res) => {
             message: 'Successfully deleted transaction'
         })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({message: error.message})
     }
 }

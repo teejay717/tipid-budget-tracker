@@ -1,7 +1,6 @@
 import express from 'express';
 const router = express.Router();
 
-import Transaction from '../models/Transaction.js';
 import { getTransactions, addTransaction, deleteTransaction, clearTransactions, editTransaction } from '../controllers/transactions.js';
 
 // get all transactions
