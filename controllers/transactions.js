@@ -3,7 +3,28 @@ import Transaction from '../models/Transaction.js';
 // get all transactions
 export const getTransactions = async (req, res) => {
     try {
-        const transactions = await Transaction.find().
+        const { period } = req.query;
+        let query = {};
+
+        if (period && period !== "all") {
+            const now = new Date();
+            let startDate;
+
+            if (period === 'week') {
+                startDate = new Date();
+                startDate.setDate(startDate.getDate() - 7);
+            } else if (period === 'month') {
+                startDate = new Date();
+                startDate.setMonth(startDate.getMonth() - 1);
+            } else if (period === 'year') {
+                startDate = new Date();
+                startDate.setFullYear(startDate.getFullYear() - 7);
+            }
+
+            query.date = { $gte: startDate }
+        }
+
+        const transactions = await Transaction.find(query).
         populate('category').
         sort({ date: -1 });
         res.status(200).json({
