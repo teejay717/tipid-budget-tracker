@@ -18,7 +18,7 @@ export const getTransactions = async (req, res) => {
                 startDate.setMonth(startDate.getMonth() - 1);
             } else if (period === 'year') {
                 startDate = new Date();
-                startDate.setFullYear(startDate.getFullYear() - 7);
+                startDate.setFullYear(startDate.getFullYear() - 1);
             }
 
             query.date = { $gte: startDate }
