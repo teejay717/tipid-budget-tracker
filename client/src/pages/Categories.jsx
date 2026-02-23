@@ -6,13 +6,19 @@ import CategoryModal from "@/components/CategoryModal";
 const Categories = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const { transactions, categories, getCategories, deleteCategory } = useContext(GlobalContext)
+    const [editingCategory, setEditingCategory] = useState(null);
 
     console.log(categories)
-    console.log(transactions)
+
+    const handleEditClick = (category) => {
+        setEditingCategory(category);
+        setModalOpen(true)
+    }
 
     useEffect(()=> {
         getCategories();
     }, [])
+
     
     return (
         <div className="max-w-4xl">
@@ -42,11 +48,23 @@ const Categories = () => {
                                                     >
                                                         <MdDeleteOutline className="text-lg text-gray-600 hover:text-red-500" />
                                                     </button>
+                                                    <button
+                                                        onClick={() => handleEditClick(category)}
+                                                        className=" text-white w-8 flex items-center justify-center duration-200 cursor-pointer p-1 rounded-lg transition-all hover:bg-gray-700"
+                                                    >
+                                                        <MdEdit className="text-lg text-gray-600 hover:text-red-500" />
+                                                    </button>
                                                 </li>
                                             )
                                         })}
                                     </ul>
-            <CategoryModal isOpen={modalOpen} onClose={() => setModalOpen(false)}/>
+            <CategoryModal 
+            isOpen={modalOpen} 
+            onClose={() => 
+                {setModalOpen(false)
+                setEditingCategory(null)}}
+            existingCategory={editingCategory}
+            />
         </div>
     );
 };

@@ -6,7 +6,7 @@ const CategoryModal = ({ modalOpen, isOpen, onClose, existingCategory }) => {
     const [text, setText] = useState('');
     const [color, setColor] = useState('#3b82f6');
 
-    const { addCategory, deleteCategory } = useContext(GlobalContext);
+    const { addCategory, deleteCategory, editCategory } = useContext(GlobalContext);
 
     const colors = [
         "#ef4444", // Red
@@ -37,7 +37,18 @@ const CategoryModal = ({ modalOpen, isOpen, onClose, existingCategory }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addCategory({ text, color });
+
+        const categoryData = {
+            text,
+            color
+        }
+
+        if (existingCategory) {
+            editCategory(existingCategory._id, categoryData)
+        } else {
+            addCategory({ text, color });
+        }
+        
         setText('');
         setColor('#3b82f6');
         onClose();
@@ -116,7 +127,6 @@ const CategoryModal = ({ modalOpen, isOpen, onClose, existingCategory }) => {
                     </div>
                 </form>
             </div>
-            <CategoryModal isOpen={modalOpen} onClose={() => setModalOpen(false)}/>
         </div>
     );
 };

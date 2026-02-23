@@ -48,6 +48,11 @@ export default (state, action) => {
                 ...state,
                 categories: state.categories.filter(category => category._id != action.payload)
             }
+        case 'EDIT_CATEGORY':
+        return {
+            ...state,
+            categories: state.categories.map(category => category._id === action.payload._id ? action.payload : category)
+        }
         default:
             return state
     }

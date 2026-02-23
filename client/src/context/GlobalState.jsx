@@ -157,6 +157,29 @@ export const GlobalProvider = ({children}) => {
             })
         }
     }
+
+    async function editCategory(id, category) {
+        const config = {
+            headers: {
+            "Content-Type": "application/json"
+            }
+        }
+
+        try {
+            const res = await axios.put(`http://localhost:5000/api/categories/${id}`, category, config)
+
+        dispatch({
+                type: 'EDIT_CATEGORY',
+                payload: res.data.data
+            })
+        } catch (err) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: err.response.data.error
+            })
+            console.error({message: err.message})
+        }
+    }
     return (
         <GlobalContext.Provider value={{
             transactions: state.transactions,
@@ -170,7 +193,8 @@ export const GlobalProvider = ({children}) => {
             clearTransactions,
             getCategories,
             addCategory,
-            deleteCategory
+            deleteCategory,
+            editCategory
         }}>
             {children}
         </GlobalContext.Provider>
