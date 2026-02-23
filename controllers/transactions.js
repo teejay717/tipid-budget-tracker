@@ -22,6 +22,8 @@ export const getTransactions = async (req, res) => {
             }
 
             query.date = { $gte: startDate }
+
+            console.log(query);
         }
 
         const transactions = await Transaction.find(query).

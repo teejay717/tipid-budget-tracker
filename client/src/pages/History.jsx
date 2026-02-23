@@ -28,11 +28,12 @@ const History = () => {
         setIsModalOpen(true)
     }
 
+    
     console.log(typeFilter)
     console.log(typeCategory)
-
+    
     const uniqueCategories = [...new Set(transactions.map(t => t.category?.text).filter(Boolean))]
-
+    
     const handleCategoryChange = (newValue) => {
         const newParams = new URLSearchParams(searchParams);
         if (newValue === "allCategories") {
@@ -42,6 +43,19 @@ const History = () => {
         }
         setSearchParams(newParams);
     }
+    
+    const currentPeriod = searchParams.get("period") || "all";
+    const handlePeriodChange = (newValue) => {
+        const newParams = new URLSearchParams(searchParams);
+        if (newValue === 'all') {
+            newParams.delete("period")
+        } else {
+            newParams.set("period", newValue)
+        }
+        setSearchParams(newParams)
+    }
+
+    
 
     const displayedTransactions = transactions.filter(t => {
         const matchesType = typeFilter === "all" ? true : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
@@ -51,14 +65,28 @@ const History = () => {
     )
 
     useEffect(() => {
-        getTransactions()
-    }, [])
+        getTransactions(currentPeriod)
+    }, [currentPeriod])
 
+    console.log(currentPeriod)
     
     return (
         <div className="max-w-4xl">
             <h1 className="text-2xl font-bold text-white mb-6">History</h1>
             <div className="flex flex-row gap-2 mb-4">
+                <Select value={currentPeriod} onValueChange={handlePeriodChange}>
+                    <SelectTrigger className="w-full max-w-48 text-white">
+                        <SelectValue placeholder="All Time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem value="all">All Time</SelectItem>
+                            <SelectItem value="week">This Week</SelectItem>
+                            <SelectItem value="month">Last 30 Days</SelectItem>
+                            <SelectItem value="year">All Time</SelectItem>  
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
                     <SelectTrigger className="w-full max-w-48 text-white">
                         <SelectValue placeholder="All Types" />

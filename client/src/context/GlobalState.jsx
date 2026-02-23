@@ -16,13 +16,14 @@ export const GlobalProvider = ({children}) => {
 
     // Functions
 
-    async function getTransactions () {
+    async function getTransactions (period = 'all') {
         try {
-            const res = await axios.get('http://localhost:5000/api/transactions')
+            const res = await axios.get(`http://localhost:5000/api/transactions?period=${period}`)
             
             dispatch({ 
                 type: 'GET_TRANSACTIONS', 
                 payload: res.data.data});
+
             
         } catch (err) {
             dispatch({
