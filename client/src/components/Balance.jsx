@@ -87,7 +87,7 @@ const Balance = () => {
 
             {/* Expense */}
             <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-5 flex flex-col justify-center">
-                <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">This Week</span>
+                <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">This Month</span>
                 <h2 className="text-xl font-bold text-green-400">
                     +₱{formatNumber(monthIncome)}
                 </h2>

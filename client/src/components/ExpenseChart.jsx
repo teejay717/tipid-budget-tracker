@@ -73,7 +73,7 @@ const ExpenseChart = () => {
     return (
         <div>
             <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
-                <h3 className="text-lg font-bold text-gray-500">Expenses by Category</h3>
+                <h3 className="text-md font-semibold text-gray-500">Expenses by Category</h3>
             </div>
             <ChartContainer
                 config={chartConfig}

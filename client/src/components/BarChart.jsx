@@ -56,7 +56,7 @@ const chartConfig = {
     return (
         <>
         <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
-                <h3 className="text-lg font-bold text-gray-500">Monthly Overview</h3>
+                <h3 className="text-md font-semibold text-gray-500">Monthly Overview</h3>
         </div>
         <ChartContainer config={chartConfig} className="min-h-25 max-h-[250px] w-full rounded-xl border border-gray-800 bg-gray-900/60 py-2">
         <BarChart className='mt-2' accessibilityLayer data={chartData}>
@@ -68,7 +68,7 @@ const chartConfig = {
                 tickMargin={8}
                 padding={{ left: 20, right: 20 }} // Adds breathing room on the sides
                 />
-            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartTooltip className="text-white mb-2" content={<ChartTooltipContent />} />
             <ChartLegend className="text-white mb-2" content={<ChartLegendContent />} />
             <Bar dataKey="income" fill="var(--color-income)" radius={[4, 4, 0, 0]} 
                 barSize={32}/>

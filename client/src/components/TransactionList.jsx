@@ -26,7 +26,7 @@ const TransactionList = () => {
     return (
         <div className='mb-8'>
             <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
-                <h3 className="text-lg font-bold text-gray-400">Recent</h3>
+                <h3 className="text-md font-semibold text-gray-400">Recent</h3>
                 {transactions.length > 0 && (
                     <button
                         onClick={() => setShowConfirmModal(true)}
