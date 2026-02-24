@@ -18,6 +18,8 @@ import {
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
+    ChartLegend, 
+    ChartLegendContent
 } from "@/components/ui/chart"
 
 export const description = "A donut chart with text"
@@ -75,7 +77,7 @@ const ExpenseChart = () => {
             </div>
             <ChartContainer
                 config={chartConfig}
-                className="mx-auto aspect-square max-h-[300px] rounded-xl border border-gray-800 bg-gray-900/60"
+                className="mx-auto aspect-square max-h-[250px] w-full rounded-xl border border-gray-800 bg-gray-900/60"
             >
             <PieChart>
             <ChartTooltip
@@ -132,6 +134,7 @@ const ExpenseChart = () => {
                     }
                 }}
                 />
+                
             </Pie>
             </PieChart>
             </ChartContainer>

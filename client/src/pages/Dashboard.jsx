@@ -3,6 +3,7 @@ import Balance from "../components/Balance";
 import TransactionModal from "../components/TransactionModal";
 import TransactionList from "../components/TransactionList";
 import ExpenseChart from "../components/ExpenseChart";
+import IncomeExpenseBarChart from "../components/BarChart";
 import { useState } from "react";
 
 const Dashboard = () => {
@@ -27,15 +28,21 @@ const Dashboard = () => {
                     – Expense
                 </button>
             </div>
+            <div className="flex flex-row gap-4 w-full mb-6">
+                <div className="flex-1 min-w-0 h-full">
+                    <IncomeExpenseBarChart />
+                </div>
+                <div className="min-w-72 shrink-0 h-full">
+                    <ExpenseChart />
+                </div>
+            </div>
             <TransactionModal isOpen={modalOpen} onClose={() => setModalOpen(false)} type={modalType} />
             <div className="flex gap-6 items-start">
                 <div className="flex-1">
                     <TransactionList />
                 </div>
                 
-                <div className="w-72 shrink-0">
-                    <ExpenseChart />
-                </div>
+                
             </div>
         </div>
     );
