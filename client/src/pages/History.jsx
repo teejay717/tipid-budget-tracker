@@ -4,7 +4,6 @@ import { GlobalContext } from "@/context/GlobalState";
 import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 import { formatNumber } from '../utils/format.js';
 import TransactionModal from "@/components/TransactionModal.jsx";
-
 import {
     Select,
     SelectContent,
@@ -13,12 +12,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import SearchBar from "@/components/SearchBar.jsx";
 
 const History = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { transactions, getTransactions, deleteTransaction } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
     const typeCategory = searchParams.get("category") || "allCategories";
+    const [query, setQuery] = useState("");
     
     const [editingTransaction, setEditingTransaction] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,10 +29,6 @@ const History = () => {
         setIsModalOpen(true)
     }
 
-    
-    console.log(typeFilter)
-    console.log(typeCategory)
-    
     const uniqueCategories = [...new Set(transactions.map(t => t.category?.text).filter(Boolean))]
     
     const handleCategoryChange = (newValue) => {
@@ -55,25 +52,30 @@ const History = () => {
         setSearchParams(newParams)
     }
 
-    
-
     const displayedTransactions = transactions.filter(t => {
         const matchesType = typeFilter === "all" ? true : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
         const matchesCategory = typeCategory === "allCategories" ? true : t.category?.text === typeCategory
-        return matchesType && matchesCategory;
+        const matchesSearch = query.trim().toLowerCase() === "" ? true : t.text.toLowerCase().includes(query.trim().toLowerCase()) 
+        return matchesType && matchesCategory && matchesSearch;
     }
     )
+
+    // Search bar implementation
+    // Get the users search value and trim it so that it has no spaces in the first and last
+    // get the current displayed Transactions and then filter it so that we only return those transactions that Match or INCLUDEs the values that the user inputted.
+    // My current concern is that Do i have to filter the displayed transactions even more so that It gets the users query. My concern is that i dont really know the structure of code to do exactly that right now. Because if I filter it separately like take displayedTransactions and then have a "Searched Transactions" it will be two diffrent lists.
+
 
     useEffect(() => {
         getTransactions(currentPeriod)
     }, [currentPeriod])
 
-    console.log(currentPeriod)
-    
     return (
         <div className="max-w-4xl">
             <h1 className="text-2xl font-bold text-white mb-6">History</h1>
+            
             <div className="flex flex-row gap-2 mb-4">
+                <SearchBar value={query} onChange={setQuery}/>
                 <Select value={currentPeriod} onValueChange={handlePeriodChange}>
                     <SelectTrigger className="w-full max-w-48 text-white">
                         <SelectValue placeholder="All Time" />
@@ -152,7 +154,7 @@ const History = () => {
                                             {sign}₱{formatNumber(Math.abs(transaction.amount))}
                                         </span>
             
-                                        {/* Delete button — slides in from the right */}
+                                        {/* Delete button  */}
                                         <button
                                             onClick={() => deleteTransaction(transaction._id)}
                                             className=" text-white w-8 flex items-center justify-center duration-200 cursor-pointer p-1 rounded-lg transition-all hover:bg-gray-700"
