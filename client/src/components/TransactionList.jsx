@@ -38,7 +38,12 @@ const TransactionList = () => {
             </div>
 
             <ul className='flex flex-col gap-2'>
-                {transactions.map(transaction => {
+                {transactions.length === 0 ? (
+                <div className="text-center py-10 text-gray-500 italic">
+                    No history yet. Start logging your allowance and expenses to see your trends!
+                </div>) :
+                
+                transactions.map(transaction => {
                     const isExpense = transaction.amount < 0;
                     const sign = isExpense ? '-' : '+';
                     const textColor = isExpense ? 'text-red-400' : 'text-green-400';

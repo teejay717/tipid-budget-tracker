@@ -118,7 +118,11 @@ const History = () => {
                 </Select>
             </div>
             <ul className='flex flex-col gap-2'>
-                            {displayedTransactions.length === 0 ? (
+                            {transactions.length === 0 ? (
+                                <div className="text-center py-5 text-gray-500 italic">
+                                    No history yet. Start logging your allowance and expenses to see your trends!
+                                </div>
+                            ) : displayedTransactions.length === 0 ? (
                                 <div className="text-center py-5 text-gray-500 italic">
                                     No transactions found matching your criteria.
                                 </div>
