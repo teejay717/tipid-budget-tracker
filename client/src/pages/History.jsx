@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import { GlobalContext } from "@/context/GlobalState";
 import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 import { formatNumber } from '../utils/format.js';
@@ -52,19 +52,21 @@ const History = () => {
         setSearchParams(newParams)
     }
 
-    const displayedTransactions = transactions.filter(t => {
-        const matchesType = typeFilter === "all" ? true : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
-        const matchesCategory = typeCategory === "allCategories" ? true : t.category?.text === typeCategory
-        const matchesSearch = query.trim().toLowerCase() === "" ? true : t.text.toLowerCase().includes(query.trim().toLowerCase()) 
-        return matchesType && matchesCategory && matchesSearch;
-    }
+    const displayedTransactions = useMemo(() => {
+        return transactions.filter(t => {
+            const matchesType = typeFilter === "all" ? true : (typeFilter === "expense" ? t.amount < 0 : t.amount > 0)
+            const matchesCategory = typeCategory === "allCategories" ? true : t.category?.text === typeCategory
+            const matchesSearch = query.trim().toLowerCase() === "" ? true : t.text.toLowerCase().includes(query.trim().toLowerCase()) 
+            return matchesType && matchesCategory && matchesSearch;
+        }
     )
+    }, [transactions, typeFilter, typeCategory, query])
+    
 
     // Search bar implementation
     // Get the users search value and trim it so that it has no spaces in the first and last
     // get the current displayed Transactions and then filter it so that we only return those transactions that Match or INCLUDEs the values that the user inputted.
     // My current concern is that Do i have to filter the displayed transactions even more so that It gets the users query. My concern is that i dont really know the structure of code to do exactly that right now. Because if I filter it separately like take displayedTransactions and then have a "Searched Transactions" it will be two diffrent lists.
-
 
     useEffect(() => {
         getTransactions(currentPeriod)
@@ -116,7 +118,12 @@ const History = () => {
                 </Select>
             </div>
             <ul className='flex flex-col gap-2'>
-                            {displayedTransactions.map(transaction => {
+                            {displayedTransactions.length === 0 ? (
+                                <div className="text-center py-5 text-gray-500 italic">
+                                    No transactions found matching your criteria.
+                                </div>
+                            ) :
+                            displayedTransactions.map(transaction => {
                                 const isExpense = transaction.amount < 0;
                                 const sign = isExpense ? '-' : '+';
                                 const textColor = isExpense ? 'text-red-400' : 'text-green-400';
