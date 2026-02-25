@@ -75,6 +75,11 @@ const ExpenseChart = () => {
             <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
                 <h3 className="text-md font-semibold text-gray-500">Expenses by Category</h3>
             </div>
+            {expenses.length === 0 ? (
+                    <div className="className=mx-auto aspect-square max-h-[250px] w-full rounded-xl border border-gray-800 bg-gray-900/60 flex justify-center items-center px-4">
+                        <p className='text-center text-gray-500 italic'>No expenses found yet.</p>
+                    </div>
+                            ) :
             <ChartContainer
                 config={chartConfig}
                 className="mx-auto aspect-square max-h-[250px] w-full rounded-xl border border-gray-800 bg-gray-900/60"
@@ -138,6 +143,7 @@ const ExpenseChart = () => {
             </Pie>
             </PieChart>
             </ChartContainer>
+}
         </div>
     )
 }
