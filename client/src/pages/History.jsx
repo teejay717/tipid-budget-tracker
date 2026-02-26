@@ -13,6 +13,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import SearchBar from "@/components/SearchBar.jsx";
+import { Button } from "@/components/ui/button.jsx";
 
 const History = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -67,6 +68,19 @@ const History = () => {
     // Get the users search value and trim it so that it has no spaces in the first and last
     // get the current displayed Transactions and then filter it so that we only return those transactions that Match or INCLUDEs the values that the user inputted.
     // My current concern is that Do i have to filter the displayed transactions even more so that It gets the users query. My concern is that i dont really know the structure of code to do exactly that right now. Because if I filter it separately like take displayedTransactions and then have a "Searched Transactions" it will be two diffrent lists.
+
+    const isFiltered = () => {
+        const isFiltered = query || typeFilter !== "all" || typeCategory !== "allCategories" ? true : false;
+        return isFiltered;
+    }
+
+    const handleClearFilters = () => {
+        setQuery("");
+        setTypeFilter("all");
+        setSearchParams("");
+    }
+
+    console.log(isFiltered());
 
     useEffect(() => {
         getTransactions(currentPeriod)
@@ -123,8 +137,13 @@ const History = () => {
                                     No history yet. Start logging your allowance and expenses to see your trends!
                                 </div>
                             ) : displayedTransactions.length === 0 ? (
-                                <div className="text-center py-5 text-gray-500 italic">
-                                    No transactions found matching your criteria.
+                                <div className="text-center py-5 text-gray-500 italic items-center flex flex-col">
+                                    <p>No transactions found matching your criteria.</p>
+                                    {isFiltered() ? (<Button className="mt-2 bg-gray-950"
+                                                    variant="outline" 
+                                                    onClick={() => {
+                                                        handleClearFilters()
+                                                    }}>Clear Filters</Button>) : ''}
                                 </div>
                             ) :
                             displayedTransactions.map(transaction => {
