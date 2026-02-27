@@ -87,11 +87,12 @@ const History = () => {
     }, [currentPeriod])
 
     return (
-        <div className="max-w-4xl">
+        <div className="max-w-6xl">
             <h1 className="text-2xl font-bold text-white mb-6">History</h1>
             
-            <div className="flex flex-row gap-2 mb-4">
+            <div className="flex flex-row gap-2 mb-4 ">
                 <SearchBar value={query} onChange={setQuery}/>
+                <div className="flex flex-1 justify-end gap-2">
                 <Select value={currentPeriod} onValueChange={handlePeriodChange}>
                     <SelectTrigger className="w-full max-w-48 text-white">
                         <SelectValue placeholder="All Time" />
@@ -130,6 +131,7 @@ const History = () => {
                         </SelectGroup>
                     </SelectContent>
                 </Select>
+                </div>
             </div>
             <ul className='flex flex-col gap-2'>
                             {transactions.length === 0 ? (
