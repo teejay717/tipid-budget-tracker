@@ -16,6 +16,8 @@ export const getTransactions = async (req, res) => {
             } else if (period === 'month') {
                 startDate = new Date();
                 startDate.setMonth(startDate.getMonth() - 1);
+            } else if (period === 'last30days') {
+                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
             } else if (period === 'year') {
                 startDate = new Date();
                 startDate.setFullYear(startDate.getFullYear() - 1);

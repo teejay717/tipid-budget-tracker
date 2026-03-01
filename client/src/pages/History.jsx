@@ -42,10 +42,10 @@ const History = () => {
         setSearchParams(newParams);
     }
     
-    const currentPeriod = searchParams.get("period") || "all";
+    const currentPeriod = searchParams.get("period") || "week";
     const handlePeriodChange = (newValue) => {
         const newParams = new URLSearchParams(searchParams);
-        if (newValue === 'all') {
+        if (newValue === 'week') {
             newParams.delete("period")
         } else {
             newParams.set("period", newValue)
@@ -95,14 +95,15 @@ const History = () => {
                 <div className="flex flex-1 justify-end gap-2">
                 <Select value={currentPeriod} onValueChange={handlePeriodChange}>
                     <SelectTrigger className="w-full max-w-48 text-white">
-                        <SelectValue placeholder="All Time" />
+                        <SelectValue placeholder="This Week" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectItem value="all">All Time</SelectItem>
                             <SelectItem value="week">This Week</SelectItem>
+                            <SelectItem value="last30days">This Month</SelectItem>
                             <SelectItem value="month">Last 30 Days</SelectItem>
-                            <SelectItem value="year">All Time</SelectItem>  
+                            {/* <SelectItem value="year">Last 365 Days</SelectItem>   */}
+                            <SelectItem value="all">All Time</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
