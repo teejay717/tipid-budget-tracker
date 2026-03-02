@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
 // This function runs automatically RIGHT BEFORE we save a user to the database
 UserSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
-        next();
+        return next();
     }
     const salt = await bcrypt.genSalt(10); // Generates a random 'Salt'
     this.password = await bcrypt.hash(this.password, salt); // Scramble the password
@@ -39,6 +39,10 @@ UserSchema.methods.getSignedJwtToken = function() {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: '30d'
     });
+}
+
+UserSchema.methods.matchPassword = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
 }
 
 const User = mongoose.model("User", UserSchema);
