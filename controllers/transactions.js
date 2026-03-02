@@ -28,7 +28,7 @@ export const getTransactions = async (req, res) => {
             console.log(query);
         }
 
-        const transactions = await Transaction.find(query).
+        const transactions = await Transaction.find({ user: req.user.id, ...query}).
         populate('category').
         sort({ date: -1 });
         res.status(200).json({
@@ -56,7 +56,7 @@ export const addTransaction = async (req, res) => {
         }
 
         // this is what creates the data in mongodb
-        const transaction = await Transaction.create(req.body);
+        const transaction = await Transaction.create({text, amount, user: req.user.id});
         await transaction.populate('category') // always send the request inside the create function to POST
         return res.status(201).json({
             success: true,
@@ -81,7 +81,7 @@ export const deleteTransaction = async (req, res) => {
     
     try {
         const { id } = req.params;
-        const transaction = await Transaction.findByIdAndDelete(id);
+        const transaction = await Transaction.findOneAndDelete({_id: id, user: req.user.id});
 
         if (!transaction) {
             return res.status(404).json({msg: 'Transaction not found!'})
@@ -99,7 +99,7 @@ export const deleteTransaction = async (req, res) => {
 export const clearTransactions = async (req, res) => {
     
     try {
-        await Transaction.deleteMany({});
+        await Transaction.deleteMany({ user: req.user.id });
 
         return res.status(200).json({
             success: true,
@@ -117,18 +117,22 @@ export const clearTransactions = async (req, res) => {
 export const editTransaction = async (req, res) => {
     const { id } = req.params;
     try {
-        const transaction = await Transaction.findByIdAndUpdate(id, req.body);
+        const transaction = await Transaction.findOneAndUpdate(
+            {_id: id, user: req.user.id},
+            req.body,
+            { new: true }
+        );
         
 
         if (!transaction) {
             return res.status(404).json({msg: 'Transaction not found!'})
         }
 
-        const updatedTransaction = await Transaction.findById(id);
-        await updatedTransaction.populate('category')
+        // const updatedTransaction = await Transaction.findById(id);
+        await transaction.populate('category')
         return res.status(200).json({
             success: true,
-            data: updatedTransaction
+            data: transaction
         })
     } catch (error) {
         return res.status(500).json({

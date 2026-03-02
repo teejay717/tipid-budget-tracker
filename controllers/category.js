@@ -2,7 +2,7 @@ import Category from '../models/Category.js';
 
 export const getCategories = async (req, res) => {
     try {
-        const categories = await Category.find({})
+        const categories = await Category.find({user: req.user.id})
         res.status(200).json({
             success: true,
             count: categories.length,
@@ -26,7 +26,7 @@ export const addCategory = async (req, res) => {
             })
         }
 
-        const category = await Category.create(req.body);
+        const category = await Category.create({text, color, user: req.user.id});
         return res.status(201).json({
             success: true,
             data: category
@@ -49,7 +49,7 @@ export const addCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
     try {
         const { id } = req.params;
-        const category = await Category.findByIdAndDelete(id);
+        const category = await Category.findOneAndDelete({_id: id, user: req.user.id});
 
         if (!category) {
             return res.status(404).json({
@@ -69,7 +69,7 @@ export const deleteCategory = async (req, res) => {
 export const editCategory = async (req, res) => {
     try {
         const { id } = req.params;
-        const category = await Category.findByIdAndUpdate(id, req.body);
+        const category = await Category.findOneAndUpdate({_id: id, user: req.user.id}, req.body, { new: true });
 
         if (!category) {
             return res.status(404).json({
@@ -77,11 +77,11 @@ export const editCategory = async (req, res) => {
             })
         }
 
-        const updatedCategory = await Category.findById(id);
+        // const updatedCategory = await Category.findById(id);
         return res.status(200).json({
             success: true,
             message: 'Successfully edited category',
-            data: updatedCategory
+            data: category
         })
     } catch (error) {
         return res.status(500).json({message: error.message})
