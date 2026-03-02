@@ -36,7 +36,7 @@ UserSchema.pre('save', async function(next) {
 // This is a helper function to create the "ID Card" (Token)
 
 UserSchema.methods.getSignedJwtToken = function() {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id: this._id }, process.env.JWT_TOKEN, {
         expiresIn: '30d'
     });
 }
