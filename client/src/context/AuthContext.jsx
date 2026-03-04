@@ -5,16 +5,18 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const [error, setError] = useState(null);
 
     async function register(name, email, password) {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', { email, name, password })
+            const res = await axios.post('http://localhost:5000/api/auth/register', { email, name, password }) // these parameters are what we are sending to mongodb to add as a User.
             
             const token = res.data.token;
             setToken(token);
+            setUser(res.data.user);
             localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(res.data.user));
             console.log(token)
         } catch (error) {
             setError(error.response.data.error);
@@ -24,11 +26,13 @@ export const AuthProvider = ({children}) => {
 
     async function login (email, password) {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', { email, password })
+            const res = await axios.post('http://localhost:5000/api/auth/login', { email, password }) // this posts to mongodb and this login path checks for a match in the db. if there is a match it is given a token and is able to proceed to the dashboard ('/');
 
             const token = res.data.token;
             setToken(token);
-            localStorage.setItem("token", token)
+            setUser(res.data.user);
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
         } catch (error) {
             setError(error.response.data.error);
         }
@@ -39,6 +43,7 @@ export const AuthProvider = ({children}) => {
             setToken(null);
             setUser(null);
             localStorage.removeItem("token");
+            localStorage.removeItem("user");
         } catch (error) {
             setError(error.response.data.error);
         }

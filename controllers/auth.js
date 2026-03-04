@@ -15,6 +15,7 @@ export const register = async (req, res) => {
 
         return res.status(201).json({
             success: true,
+            user,
             token
         })
     } catch (error) {
@@ -45,6 +46,7 @@ try {
         const token = user.getSignedJwtToken();
         return res.status(200).json({
             success: true,
+            user,
             token
         })
     } catch (error) {

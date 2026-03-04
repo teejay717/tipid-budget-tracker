@@ -17,7 +17,7 @@ export const GlobalProvider = ({children}) => {
     const getConfig = () => ({
         headers: {
             "Content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}` // this is to set the header like the old config AND have authorization field filled with the JWT token the user has. If this doesnt exist then auth.js will return not authorized and will not let you enter the path you requested.
         }
     })
 
