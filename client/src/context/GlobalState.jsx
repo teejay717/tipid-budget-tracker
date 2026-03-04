@@ -14,11 +14,18 @@ export const GlobalContext = createContext(initialState)
 export const GlobalProvider = ({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState)
 
+    const getConfig = () => ({
+        headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+
     // Functions
 
     async function getTransactions (period = 'all') {
         try {
-            const res = await axios.get(`http://localhost:5000/api/transactions?period=${period}`)
+            const res = await axios.get(`http://localhost:5000/api/transactions?period=${period}`, getConfig())
             
             dispatch({ 
                 type: 'GET_TRANSACTIONS', 
@@ -35,7 +42,7 @@ export const GlobalProvider = ({children}) => {
 
     async function deleteTransaction(id) {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/transactions/${id}`)
+            const res = await axios.delete(`http://localhost:5000/api/transactions/${id}`, getConfig())
 
             dispatch({
                 type: 'DELETE_TRANSACTION',
@@ -50,13 +57,8 @@ export const GlobalProvider = ({children}) => {
     }
 
     async function addTransaction(transaction) {
-        const config = {
-            headers: {
-            "Content-Type": "application/json"
-            }
-        }
         try {
-            const res = await axios.post('http://localhost:5000/api/transactions', transaction, config)
+            const res = await axios.post('http://localhost:5000/api/transactions', transaction, getConfig())
 
             dispatch({
                 type: 'ADD_TRANSACTION',
@@ -71,14 +73,9 @@ export const GlobalProvider = ({children}) => {
         }
     }
     async function updateTransaction(id, transaction) {
-        const config = {
-            headers: {
-            "Content-Type": "application/json"
-            }
-        }
 
         try {
-            const res = await axios.put(`http://localhost:5000/api/transactions/${id}`, transaction, config)
+            const res = await axios.put(`http://localhost:5000/api/transactions/${id}`, transaction, getConfig())
 
             dispatch({
                 type: 'UPDATE_TRANSACTION',
@@ -95,7 +92,7 @@ export const GlobalProvider = ({children}) => {
 
     async function clearTransactions() {
         try {
-            const res = await axios.delete('http://localhost:5000/api/transactions')
+            const res = await axios.delete('http://localhost:5000/api/transactions', getConfig())
 
             dispatch({
                 type: 'CLEAR_TRANSACTIONS',
@@ -110,7 +107,7 @@ export const GlobalProvider = ({children}) => {
 
     async function getCategories() {
         try {
-            const res = await axios.get('http://localhost:5000/api/categories')
+            const res = await axios.get('http://localhost:5000/api/categories', getConfig())
 
             dispatch({
                 type: 'GET_CATEGORIES',
@@ -125,13 +122,9 @@ export const GlobalProvider = ({children}) => {
     }
 
     async function addCategory(category) {
-        const config = {
-            headers: {
-            "Content-Type": "application/json"
-            }
-        }
+
         try {
-            const res = await axios.post('http://localhost:5000/api/categories', category, config)
+            const res = await axios.post('http://localhost:5000/api/categories', category, getConfig())
 
             dispatch({
                 type: 'ADD_CATEGORY',
@@ -144,7 +137,7 @@ export const GlobalProvider = ({children}) => {
     
     async function deleteCategory(id) {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/categories/${id}`)
+            const res = await axios.delete(`http://localhost:5000/api/categories/${id}`, getConfig())
 
             dispatch({
                 type: 'DELETE_CATEGORY',
@@ -159,14 +152,10 @@ export const GlobalProvider = ({children}) => {
     }
 
     async function editCategory(id, category) {
-        const config = {
-            headers: {
-            "Content-Type": "application/json"
-            }
-        }
+
 
         try {
-            const res = await axios.put(`http://localhost:5000/api/categories/${id}`, category, config)
+            const res = await axios.put(`http://localhost:5000/api/categories/${id}`, category, getConfig())
 
         dispatch({
                 type: 'EDIT_CATEGORY',

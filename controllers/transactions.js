@@ -47,7 +47,7 @@ export const getTransactions = async (req, res) => {
 export const addTransaction = async (req, res) => {
     try {
         // do this to check if there is an input ( Input Validation )
-        const { text, amount } = req.body; // this is what we expect to receive from the user
+        const { text, amount, category } = req.body; // this is what we expect to receive from the user
         if (!text || !amount) {
             return res.status(400).json({
                 success: false,
@@ -56,7 +56,7 @@ export const addTransaction = async (req, res) => {
         }
 
         // this is what creates the data in mongodb
-        const transaction = await Transaction.create({text, amount, user: req.user.id});
+        const transaction = await Transaction.create({text, amount, user: req.user.id, category});
         await transaction.populate('category') // always send the request inside the create function to POST
         return res.status(201).json({
             success: true,

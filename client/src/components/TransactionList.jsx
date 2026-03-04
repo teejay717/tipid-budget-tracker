@@ -21,7 +21,6 @@ const TransactionList = () => {
         getTransactions();
     }, [])
 
-    console.log(transactions)
 
     return (
         <div className='mb-8'>
