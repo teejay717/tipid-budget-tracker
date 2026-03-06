@@ -4,13 +4,14 @@ import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons
 import ConfirmModal from './ConfirmModal';
 import { formatNumber } from '../utils/format.js';
 import TransactionModal from "../components/TransactionModal";
+import { Button } from './ui/button';
 
 const TransactionList = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const { transactions, getTransactions, deleteTransaction, clearTransactions, updateTransaction } = useContext(GlobalContext);
-
     const [editingTransaction, setEditingTransaction] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    let [visibleCount, setVisibleCount] = useState(5);
 
     const handleEditClick = (transaction) => {
         setEditingTransaction(transaction);
@@ -20,6 +21,7 @@ const TransactionList = () => {
     useEffect(() => {
         getTransactions();
     }, [])
+    
 
 
     return (
@@ -42,7 +44,7 @@ const TransactionList = () => {
                     No history yet. Start logging your allowance and expenses to see your trends!
                 </div>) :
                 
-                transactions.map(transaction => {
+                transactions.slice(0,visibleCount).map(transaction => {
                     const isExpense = transaction.amount < 0;
                     const sign = isExpense ? '-' : '+';
                     const textColor = isExpense ? 'text-red-400' : 'text-green-400';
@@ -94,9 +96,28 @@ const TransactionList = () => {
                                 <MdEdit className="text-lg text-gray-600 hover:text-red-500" />
                             </button>
                         </li>
+                        
                     )
                 })}
+                
             </ul>
+            {transactions.length > 0 ?
+            <div className='flex justify-center items-center gap-2'>
+            { transactions.length > visibleCount && (
+                                <Button className="mt-2 bg-gray-950 text-gray-500 w-full" variant="outline" 
+                                onClick={() => setVisibleCount(visibleCount + 5)}>
+                                    Show More
+                                </Button>
+                            )}
+            {visibleCount > 5 && (
+                                <Button className="mt-2 bg-gray-950 text-gray-500 w-full" variant="outline"
+                                onClick={() => setVisibleCount(visibleCount - 5)}>
+                                    Show Less
+                                </Button>
+                            )}
+            </div>
+            : ""}
+            
             
             <TransactionModal 
                 isOpen={isModalOpen} 
