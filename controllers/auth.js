@@ -1,8 +1,15 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import Category from "../models/Category.js";
 
 export const register = async (req, res) => {
     try {
+        const defaultCategories = [
+        { text: 'Food', color: '#f97316' },
+        { text: 'Transportation', color: '#22c55e' },
+        { text: 'Miscellaneous', color: '#64748b' },
+    ];
+
         const { email, name, password } = req.body;
 
         const user = await User.create({
@@ -10,6 +17,14 @@ export const register = async (req, res) => {
             name,
             password
         })
+        
+        for (const category of defaultCategories) {
+            await Category.create({
+                user: user._id,
+                text: category.text,
+                color: category.color,
+            });
+        }
 
         const token = user.getSignedJwtToken();
 
