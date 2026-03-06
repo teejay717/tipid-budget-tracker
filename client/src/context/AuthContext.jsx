@@ -10,7 +10,7 @@ export const AuthProvider = ({children}) => {
 
     async function register(name, email, password) {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', { email, name, password }) // these parameters are what we are sending to mongodb to add as a User.
+            const res = await axios.post('http://localhost:5000/api/auth/register', { email, name, password }) // these parameters (req.body) are what we are sending to mongodb to add as a User.
             
             const token = res.data.token;
             setToken(token);
