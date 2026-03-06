@@ -4,6 +4,7 @@ import { GlobalContext } from "@/context/GlobalState";
 import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 import { formatNumber } from '../utils/format.js';
 import TransactionModal from "@/components/TransactionModal.jsx";
+import ConfirmModal from '@/components/ConfirmModal.jsx';
 import {
     Select,
     SelectContent,
@@ -17,10 +18,11 @@ import { Button } from "@/components/ui/button.jsx";
 
 const History = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { transactions, getTransactions, deleteTransaction } = useContext(GlobalContext);
+    const { transactions, getTransactions, deleteTransaction, clearTransactions } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
     const typeCategory = searchParams.get("category") || "allCategories";
     const [query, setQuery] = useState("");
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     
     const [editingTransaction, setEditingTransaction] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,7 +89,7 @@ const History = () => {
     }, [currentPeriod])
 
     return (
-        <div className="max-w-6xl">
+        <div className="max-w-8xl mx-2">
             <h1 className="text-2xl font-bold text-white mb-6">History</h1>
             
             <div className="flex flex-row gap-2 mb-4 ">
@@ -133,7 +135,17 @@ const History = () => {
                     </SelectContent>
                 </Select>
                 </div>
+                {transactions.length > 0 && (
+                    <button
+                        onClick={() => setShowConfirmModal(true)}
+                        className="text-xs text-gray-600/80 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer
+                        px-2 rounded-md border border-gray-600/60 hover:bg-red-700"
+                    >
+                        <MdDeleteOutline className="text-lg text-white" />
+                    </button>
+                )}
             </div>
+            
             <ul className='flex flex-col gap-2'>
                             {transactions.length === 0 ? (
                                 <div className="text-center py-5 text-gray-500 italic">
@@ -210,6 +222,13 @@ const History = () => {
                         setIsModalOpen(false);
                         setEditingTransaction(null)}} 
                         existingTransaction={editingTransaction}/>
+                        <ConfirmModal
+                        isOpen={showConfirmModal}
+                        onClose={() => setShowConfirmModal(false)}
+                        onConfirm={clearTransactions}
+                        title="Clear All Transactions"
+                        message="Are you sure you want to delete all transactions? This action cannot be undone."
+            />
         </div>
     );
 };

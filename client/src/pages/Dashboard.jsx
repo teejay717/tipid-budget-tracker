@@ -11,7 +11,7 @@ const Dashboard = () => {
     const [modalType, setModalType] = useState('income');
 
     return (
-        <div className="max-w-6xl">
+        <div className="max-w-8xl mx-2">
             <h1 className="text-2xl font-bold text-white mb-6">Allowance Tracker</h1>
             <Balance />
             <div className="flex gap-4 mb-6">
