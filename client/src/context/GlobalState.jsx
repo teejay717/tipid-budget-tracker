@@ -2,6 +2,8 @@ import React, { createContext, useReducer } from "react";
 import AppReducer from './AppReducer'
 import axios from 'axios'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const initialState = {
     transactions: [],
     categories: [],
@@ -25,7 +27,7 @@ export const GlobalProvider = ({children}) => {
 
     async function getTransactions (period = 'all') {
         try {
-            const res = await axios.get(`http://localhost:5000/api/transactions?period=${period}`, getConfig())
+            const res = await axios.get(`${API_URL}/api/transactions?period=${period}`, getConfig())
             
             dispatch({ 
                 type: 'GET_TRANSACTIONS', 
@@ -42,7 +44,7 @@ export const GlobalProvider = ({children}) => {
 
     async function deleteTransaction(id) {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/transactions/${id}`, getConfig())
+            const res = await axios.delete(`${API_URL}/api/transactions/${id}`, getConfig())
 
             dispatch({
                 type: 'DELETE_TRANSACTION',
@@ -58,7 +60,7 @@ export const GlobalProvider = ({children}) => {
 
     async function addTransaction(transaction) {
         try {
-            const res = await axios.post('http://localhost:5000/api/transactions', transaction, getConfig())
+            const res = await axios.post(`${API_URL}/api/transactions`, transaction, getConfig())
 
             dispatch({
                 type: 'ADD_TRANSACTION',
@@ -75,7 +77,7 @@ export const GlobalProvider = ({children}) => {
     async function updateTransaction(id, transaction) {
 
         try {
-            const res = await axios.put(`http://localhost:5000/api/transactions/${id}`, transaction, getConfig())
+            const res = await axios.put(`${API_URL}/api/transactions/${id}`, transaction, getConfig())
 
             dispatch({
                 type: 'UPDATE_TRANSACTION',
@@ -92,7 +94,7 @@ export const GlobalProvider = ({children}) => {
 
     async function clearTransactions() {
         try {
-            const res = await axios.delete('http://localhost:5000/api/transactions', getConfig())
+            const res = await axios.delete(`${API_URL}/api/transactions`, getConfig())
 
             dispatch({
                 type: 'CLEAR_TRANSACTIONS',
@@ -107,7 +109,7 @@ export const GlobalProvider = ({children}) => {
 
     async function getCategories() {
         try {
-            const res = await axios.get('http://localhost:5000/api/categories', getConfig())
+            const res = await axios.get(`${API_URL}/api/categories`, getConfig())
 
             dispatch({
                 type: 'GET_CATEGORIES',
@@ -124,7 +126,7 @@ export const GlobalProvider = ({children}) => {
     async function addCategory(category) {
 
         try {
-            const res = await axios.post('http://localhost:5000/api/categories', category, getConfig())
+            const res = await axios.post(`${API_URL}/api/categories`, category, getConfig())
 
             dispatch({
                 type: 'ADD_CATEGORY',
@@ -137,7 +139,7 @@ export const GlobalProvider = ({children}) => {
     
     async function deleteCategory(id) {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/categories/${id}`, getConfig())
+            const res = await axios.delete(`${API_URL}/api/categories/${id}`, getConfig())
 
             dispatch({
                 type: 'DELETE_CATEGORY',
@@ -155,7 +157,7 @@ export const GlobalProvider = ({children}) => {
 
 
         try {
-            const res = await axios.put(`http://localhost:5000/api/categories/${id}`, category, getConfig())
+            const res = await axios.put(`${API_URL}/api/categories/${id}`, category, getConfig())
 
         dispatch({
                 type: 'EDIT_CATEGORY',
