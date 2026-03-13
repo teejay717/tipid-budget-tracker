@@ -8,7 +8,6 @@ const Categories = () => {
     const { transactions, categories, getCategories, deleteCategory } = useContext(GlobalContext)
     const [editingCategory, setEditingCategory] = useState(null);
 
-    console.log(categories)
 
     const handleEditClick = (category) => {
         setEditingCategory(category);

@@ -82,8 +82,6 @@ const History = () => {
         setSearchParams("");
     }
 
-    console.log(isFiltered());
-
     useEffect(() => {
         getTransactions(currentPeriod)
     }, [currentPeriod])
