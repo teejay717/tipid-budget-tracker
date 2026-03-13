@@ -20,7 +20,7 @@ const TransactionList = () => {
 
     useEffect(() => {
         getTransactions();
-    }, [transactions])
+    }, [])
     
 
 
