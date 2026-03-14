@@ -10,6 +10,10 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const [error, setError] = useState(null);
 
+    function clearError() {
+        setError(null);
+    }
+
     async function register(name, email, password) {
         try {
             const res = await axios.post(`${API_URL}/api/auth/register`, { email, name, password }) // these parameters (req.body) are what we are sending to mongodb to add as a User.
@@ -57,7 +61,8 @@ export const AuthProvider = ({children}) => {
             error,
             register,
             login,
-            logout
+            logout,
+            clearError
         }}>
             {children}
         </AuthContext.Provider>

@@ -19,7 +19,7 @@ const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { register, error, token } = useContext(AuthContext);
+    const { register, error, token, clearError } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,6 +27,16 @@ const Register = () => {
             navigate('/');
         }
     }, [token, navigate])
+
+    useEffect(() => {
+        if (!error) return;
+
+        const timer = setTimeout(() => {
+            clearError()
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [error, clearError])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -81,9 +91,12 @@ const Register = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
                         </div>
-                        <Button type="submit" className="w-full">
-                        Register
-                        </Button>
+                        <div className="mt-2">
+                            <p className={(`${error ? 'mb-2 mt-0' : 'mb-0'} text-red-400`)}>{error}</p>
+                            <Button type="submit" className="w-full">
+                            Register
+                            </Button>
+                        </div>
                         {/* <Button variant="outline" className="w-full">
                         Login with Google
                         </Button> */}

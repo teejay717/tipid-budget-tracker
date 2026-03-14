@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, error, token } = useContext(AuthContext);
+    const { login, error, token, clearError } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,6 +30,16 @@ const Login = () => {
         e.preventDefault();
         await login( email, password );
     }
+
+    useEffect(() => {
+        if (!error) return;
+
+        const timer = setTimeout(() => {
+            clearError()
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [error, clearError])
 
     return (
         <div className="flex flex-col bg-slate-950 h-screen justify-center items-center">
@@ -69,9 +79,13 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
                         </div>
-                        <Button type="submit" className="w-full">
-                        Login
-                        </Button>
+                        <div>
+                            <p className={(`${error ? 'mb-2 mt-0' : 'mb-0 mt-0'} text-red-400`)}>{error}</p>
+                            <Button type="submit" className="w-full">
+                            Login
+                            </Button>
+                        </div>
+                        
                         {/* <Button variant="outline" className="w-full">
                         Login with Google
                         </Button> */}
