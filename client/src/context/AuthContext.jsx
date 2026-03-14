@@ -21,9 +21,9 @@ export const AuthProvider = ({children}) => {
             const token = res.data.token;
             setToken(token);
             setUser(res.data.user);
+            setError(null);
             localStorage.setItem("token", token)
             localStorage.setItem("user", JSON.stringify(res.data.user));
-            console.log(token)
         } catch (error) {
             setError(error.response.data.error);
         }
@@ -37,6 +37,7 @@ export const AuthProvider = ({children}) => {
             const token = res.data.token;
             setToken(token);
             setUser(res.data.user);
+            setError(null);
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
         } catch (error) {
@@ -48,6 +49,7 @@ export const AuthProvider = ({children}) => {
         try {
             setToken(null);
             setUser(null);
+            setError(null);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
         } catch (error) {

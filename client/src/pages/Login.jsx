@@ -61,7 +61,9 @@ const Login = () => {
                             value={email} 
                             placeholder="m@example.com"
                             required 
-                            onChange={(e) => setEmail(e.target.value)}/>
+                            onChange={(e) => {setEmail(e.target.value)
+                                clearError();
+                            }}/>
                         </div>
                         <div className="grid gap-2">
                         <div className="flex items-center">
@@ -77,7 +79,9 @@ const Login = () => {
                             type="password" 
                             required 
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}/>
+                            onChange={(e) => {setPassword(e.target.value)
+                                clearError();
+                            }}/>
                         </div>
                         <div>
                             <p className={(`${error ? 'mb-2 mt-0' : 'mb-0 mt-0'} text-red-400`)}>{error}</p>
