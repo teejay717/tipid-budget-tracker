@@ -107,7 +107,11 @@ const ExpenseChart = () => {
                 innerRadius={60}
                 strokeWidth={5}
                 onClick={(sliceData) => {
-                    navigate(`/history?category=${sliceData.name}`)
+                    const params = new URLSearchParams({
+                        category: sliceData.name,
+                        period: "all"
+                    })
+                    navigate(`/history?${params.toString()}`)
                 }}
             >
                 <Label
