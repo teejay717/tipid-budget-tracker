@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom";
 import LoadingModal from "@/components/LoadingModal";
 import { MdOutlineCheckCircle } from 'react-icons/md';
+import Tilt from 'react-parallax-tilt';
 
 
 const Register = () => {
@@ -56,35 +57,49 @@ const Register = () => {
 
             <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-10 lg:py-16">
                 <div className="grid w-full gap-8 lg:grid-cols-2 lg:gap-12">
-                    <section className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-8 shadow-2xl backdrop-blur-sm">
-                        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
-                            Tipid by teejay.dev
-                        </p>
-                        <p className="mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
-                            Start Your Money Journey
-                        </p>
-                        <h1 className="text-3xl font-bold leading-tight text-white lg:text-4xl">
-                            Build smarter spending habits with Tipid.
-                        </h1>
-                        <p className="mt-4 max-w-lg text-sm text-slate-300 lg:text-base">
-                            Create your account to get a clear view of your allowance, spending categories, and progress over time. One simple system, better daily decisions.
-                        </p>
+                    <Tilt
+                        className="w-full"
+                        tiltMaxAngleX={8}
+                        tiltMaxAngleY={8}
+                        perspective={1200}
+                        scale={1.01}
+                        transitionSpeed={1200}
+                        gyroscope={true}
+                        glareEnable={true}
+                        glareMaxOpacity={0.12}
+                        glareColor="#ffffff"
+                        glarePosition="all"
+                    >
+                        <section className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-8 shadow-2xl backdrop-blur-sm">
+                            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                                Tipid by teejay.dev
+                            </p>
+                            <p className="mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
+                                Start Your Money Journey
+                            </p>
+                            <h1 className="text-3xl font-bold leading-tight text-white lg:text-4xl">
+                                Build smarter spending habits with Tipid.
+                            </h1>
+                            <p className="mt-4 max-w-lg text-sm text-slate-300 lg:text-base">
+                                Create your account to get a clear view of your allowance, spending categories, and progress over time. One simple system, better daily decisions.
+                            </p>
 
-                        <ul className="mt-8 space-y-4">
-                            <li className="flex items-start gap-3 text-sm text-slate-200">
-                                <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
-                                <span>See your balance update instantly as you add transactions.</span>
-                            </li>
-                            <li className="flex items-start gap-3 text-sm text-slate-200">
-                                <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
-                                <span>Customize categories to match your real spending behavior.</span>
-                            </li>
-                            <li className="flex items-start gap-3 text-sm text-slate-200">
-                                <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
-                                <span>Use trend charts to catch overspending before it becomes a habit.</span>
-                            </li>
-                        </ul>
-                    </section>
+                            <ul className="mt-8 space-y-4">
+                                <li className="flex items-start gap-3 text-sm text-slate-200">
+                                    <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                                    <span>See your balance update instantly as you add transactions.</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-slate-200">
+                                    <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                                    <span>Customize categories to match your real spending behavior.</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-slate-200">
+                                    <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                                    <span>Use trend charts to catch overspending before it becomes a habit.</span>
+                                </li>
+                            </ul>
+                        </section>
+                    </Tilt>
 
                     <section className="flex items-center">
                         <Card className="w-full border-slate-700 bg-slate-900/90 shadow-2xl">
