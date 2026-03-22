@@ -11,10 +11,12 @@ const Dashboard = () => {
     const [modalType, setModalType] = useState('income');
 
     return (
-        <div className="max-w-8xl mx-2">
+        <div className="w-full max-w-8xl mx-0 sm:mx-2">
             <h1 className="text-2xl font-bold text-white mb-6">Allowance Tracker</h1>
             <Balance />
-            <div className="flex gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6
+
+">
                 <button
                     onClick={() => { setModalType('income'); setModalOpen(true); }}
                     className="flex-1 py-3 rounded-lg font-semibold text-green-400 bg-green-900/30 border border-green-800 hover:bg-green-900/50 transition-colors cursor-pointer"
@@ -28,11 +30,11 @@ const Dashboard = () => {
                     – Expense
                 </button>
             </div>
-            <div className="flex flex-row gap-4 w-full mb-6">
+            <div className="flex flex-col xl:flex-row gap-4 w-full mb-6">
                 <div className="flex-1 min-w-0 h-full">
                     <IncomeExpenseBarChart />
                 </div>
-                <div className="min-w-72 shrink-0 h-full">
+                <div className="w-full xl:w-80 min-w-0 shrink-0 h-full">
                     <ExpenseChart />
                 </div>
             </div>

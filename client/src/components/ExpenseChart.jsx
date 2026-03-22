@@ -86,7 +86,7 @@ const ExpenseChart = () => {
             >
             <PieChart>
             <ChartTooltip
-                cursor={false}a
+                cursor={false}
                 content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                         const { name, amount } = payload[0].payload;
