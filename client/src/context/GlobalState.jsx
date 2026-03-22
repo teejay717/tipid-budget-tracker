@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useState } from "react";
 import AppReducer from './AppReducer'
 import axios from 'axios'
 
@@ -14,6 +14,8 @@ const initialState = {
 export const GlobalContext = createContext(initialState)
 
 export const GlobalProvider = ({children}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingCategories, setIsLoadingCategories] = useState(false);
     const [state, dispatch] = useReducer(AppReducer, initialState)
 
     const getConfig = () => ({
@@ -27,6 +29,7 @@ export const GlobalProvider = ({children}) => {
 
     async function getTransactions (period = 'all') {
         try {
+            setIsLoading(true);
             const res = await axios.get(`${API_URL}/api/transactions?period=${period}`, getConfig())
             
             dispatch({ 
@@ -39,6 +42,8 @@ export const GlobalProvider = ({children}) => {
                 type: 'TRANSACTION_ERROR',
                 payload: err.response.data.error
             })
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -109,6 +114,7 @@ export const GlobalProvider = ({children}) => {
 
     async function getCategories() {
         try {
+            setIsLoadingCategories(true);
             const res = await axios.get(`${API_URL}/api/categories`, getConfig())
 
             dispatch({
@@ -120,6 +126,8 @@ export const GlobalProvider = ({children}) => {
                 type: 'TRANSACTION_ERROR',
                 payload: err.response.data.error
             })
+        } finally {
+            setIsLoadingCategories(false)
         }
     }
 
@@ -185,7 +193,9 @@ export const GlobalProvider = ({children}) => {
             getCategories,
             addCategory,
             deleteCategory,
-            editCategory
+            editCategory,
+            isLoading,
+            isLoadingCategories
         }}>
             {children}
         </GlobalContext.Provider>

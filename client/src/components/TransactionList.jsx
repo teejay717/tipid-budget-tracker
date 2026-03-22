@@ -5,10 +5,11 @@ import ConfirmModal from './ConfirmModal';
 import { formatNumber } from '../utils/format.js';
 import TransactionModal from "../components/TransactionModal";
 import { Button } from './ui/button';
+import LoadingModal from './LoadingModal';
 
 const TransactionList = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const { transactions, getTransactions, deleteTransaction, clearTransactions, updateTransaction } = useContext(GlobalContext);
+    const { transactions, getTransactions, deleteTransaction, clearTransactions, updateTransaction, isLoading } = useContext(GlobalContext);
     const [editingTransaction, setEditingTransaction] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     let [visibleCount, setVisibleCount] = useState(5);
@@ -134,6 +135,10 @@ const TransactionList = () => {
                 title="Clear All Transactions"
                 message="Are you sure you want to delete all transactions? This action cannot be undone."
             />
+            <LoadingModal  
+                open = {isLoading}
+                title = 'Loading your transactions...'
+                message = 'Please wait while we find your transactions...'/>
         </div>
     )
 }

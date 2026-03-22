@@ -5,6 +5,7 @@ import TransactionList from "../components/TransactionList";
 import ExpenseChart from "../components/ExpenseChart";
 import IncomeExpenseBarChart from "../components/BarChart";
 import { useState } from "react";
+import LoadingModal from "@/components/LoadingModal";
 
 const Dashboard = () => {
     const [modalOpen, setModalOpen] = useState(false);

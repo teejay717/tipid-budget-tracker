@@ -15,14 +15,17 @@ import {
 } from "@/components/ui/select"
 import SearchBar from "@/components/SearchBar.jsx";
 import { Button } from "@/components/ui/button.jsx";
+import LoadingModal from "@/components/LoadingModal.jsx";
 
 const History = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { transactions, getTransactions, deleteTransaction, clearTransactions } = useContext(GlobalContext);
+    const { transactions, getTransactions, deleteTransaction, clearTransactions, isLoading } = useContext(GlobalContext);
     const [typeFilter, setTypeFilter] = useState("all")
     const typeCategory = searchParams.get("category") || "allCategories";
     const [query, setQuery] = useState("");
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+    
     
     const [editingTransaction, setEditingTransaction] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -226,7 +229,11 @@ const History = () => {
                         onConfirm={clearTransactions}
                         title="Clear All Transactions"
                         message="Are you sure you want to delete all transactions? This action cannot be undone."
-            />
+            /> 
+            <LoadingModal  
+                open = {isLoading}
+                title = 'Loading your history...'
+                message = 'Please wait while we prepare your history...'/>/
         </div>
     );
 };

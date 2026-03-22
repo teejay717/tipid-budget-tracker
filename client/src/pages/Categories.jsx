@@ -2,12 +2,14 @@ import { GlobalContext } from "@/context/GlobalState";
 import { useContext, useEffect, useState } from "react";
 import { MdCallMade, MdCallReceived, MdDeleteOutline, MdEdit } from 'react-icons/md';
 import CategoryModal from "@/components/CategoryModal";
+import LoadingModal from "@/components/LoadingModal";
 
 const Categories = () => {
     const [modalOpen, setModalOpen] = useState(false);
-    const { transactions, categories, getCategories, deleteCategory } = useContext(GlobalContext)
+    const { transactions, categories, getCategories, deleteCategory, isLoadingCategories } = useContext(GlobalContext)
     const [editingCategory, setEditingCategory] = useState(null);
 
+    console.log(isLoadingCategories)
 
     const handleEditClick = (category) => {
         setEditingCategory(category);
@@ -64,6 +66,10 @@ const Categories = () => {
                 setEditingCategory(null)}}
             existingCategory={editingCategory}
             />
+            <LoadingModal  
+                open = {isLoadingCategories}
+                title = 'Organizing your categories...'
+                message = 'Please wait while we load your categories...'/>
         </div>
     );
 };
