@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
+    const [isAuthLoading, setIsAuthLoading] = useState(false);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const [error, setError] = useState(null);
@@ -16,6 +17,7 @@ export const AuthProvider = ({children}) => {
 
     async function register(name, email, password) {
         try {
+            setIsAuthLoading(true);
             const res = await axios.post(`${API_URL}/api/auth/register`, { email, name, password }) // these parameters (req.body) are what we are sending to mongodb to add as a User.
             
             const token = res.data.token;
@@ -27,11 +29,15 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
             setError(error.response.data.error);
         }
+        finally {
+            setIsAuthLoading(false);
+        }
         
     }
 
     async function login (email, password) {
         try {
+            setIsAuthLoading(true);
             const res = await axios.post(`${API_URL}/api/auth/login`, { email, password }) // this posts to mongodb and this login path checks for a match in the db. if there is a match it is given a token and is able to proceed to the dashboard ('/');
 
             const token = res.data.token;
@@ -42,6 +48,9 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem("user", JSON.stringify(res.data.user));
         } catch (error) {
             setError(error.response.data.error);
+        }
+        finally {
+            setIsAuthLoading(false);
         }
     }
 
@@ -64,7 +73,8 @@ export const AuthProvider = ({children}) => {
             register,
             login,
             logout,
-            clearError
+            clearError,
+            isAuthLoading
         }}>
             {children}
         </AuthContext.Provider>

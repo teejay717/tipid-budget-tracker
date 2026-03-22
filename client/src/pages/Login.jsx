@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -13,11 +12,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom";
+import LoadingModal from "@/components/LoadingModal";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, error, token, clearError } = useContext(AuthContext);
+    const { login, error, token, clearError, isAuthLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,6 +28,9 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (isAuthLoading) return; 
+        
         await login( email, password );
     }
 
@@ -61,6 +64,7 @@ const Login = () => {
                             value={email} 
                             placeholder="m@example.com"
                             required 
+                            disabled={isAuthLoading}
                             onChange={(e) => {setEmail(e.target.value)
                                 clearError();
                             }}/>
@@ -79,14 +83,15 @@ const Login = () => {
                             type="password" 
                             required 
                             value={password}
+                            disabled={isAuthLoading}
                             onChange={(e) => {setPassword(e.target.value)
                                 clearError();
                             }}/>
                         </div>
                         <div>
                             <p className={(`${error ? 'mb-2 mt-0' : 'mb-0 mt-0'} text-red-400`)}>{error}</p>
-                            <Button type="submit" className="w-full">
-                            Login
+                            <Button type="submit" className="w-full" disabled={isAuthLoading}>
+                                {(isAuthLoading ? "Logging in" : "Login")}
                             </Button>
                         </div>
                         
@@ -124,7 +129,12 @@ const Login = () => {
                     <button type="submit">Submit</button>
                 </form>
             </div> */}
+            <LoadingModal
+                open = {isAuthLoading}
+                title = 'Signing you in'
+                message = 'Please wait while we verify your account...'/>
         </div>
+        
     )
 }
 

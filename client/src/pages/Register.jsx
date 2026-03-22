@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -13,13 +12,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom";
+import LoadingModal from "@/components/LoadingModal";
 
 
 const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { register, error, token, clearError } = useContext(AuthContext);
+    const { register, error, token, clearError, isAuthLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -40,6 +40,9 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (isAuthLoading) return;
+        
         await register( name, email, password );
     }
 
@@ -63,6 +66,7 @@ const Register = () => {
                             value={name} 
                             placeholder=""
                             required 
+                            disabled={isAuthLoading}
                             onChange={(e) =>{ 
                                 setName(e.target.value);
                                 clearError();
@@ -76,9 +80,10 @@ const Register = () => {
                             value={email} 
                             placeholder="m@example.com"
                             required 
+                            disabled={isAuthLoading}
                             onChange={(e) => {
                                 setEmail(e.target.value);
-                                clearError;
+                                clearError();
                             }}/>
                         </div>
                         <div className="grid gap-2">
@@ -95,14 +100,15 @@ const Register = () => {
                             type="password" 
                             required 
                             value={password}
+                            disabled={isAuthLoading}
                             onChange={(e) => {
                                 setPassword(e.target.value);
                                 clearError();}}/>
                         </div>
                         <div className="mt-2">
                             <p className={(`${error ? 'mb-2 mt-0' : 'mb-0'} text-red-400`)}>{error}</p>
-                            <Button type="submit" className="w-full">
-                            Register
+                            <Button type="submit" className="w-full" disabled={isAuthLoading}>
+                                {(isAuthLoading ? "Registering" : "Register")}
                             </Button>
                         </div>
                         {/* <Button variant="outline" className="w-full">
@@ -146,6 +152,10 @@ const Register = () => {
                     <button type="submit">Submit</button>
                 </form>
             </div> */}
+            <LoadingModal
+                open = {isAuthLoading}
+                title = 'Registering...'
+                message = 'Please wait while we register your account...'/>
         </div>
     )
 }
