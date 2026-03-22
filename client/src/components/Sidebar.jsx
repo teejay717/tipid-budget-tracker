@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { MdDashboard, MdHistory, MdCategory, MdMenu, MdChevronLeft, MdLogout} from 'react-icons/md';
+import { MdDashboard, MdHistory, MdCategory, MdMenu, MdChevronLeft, MdLogout, MdAttachMoney} from 'react-icons/md';
+import { GiTakeMyMoney } from "react-icons/gi";
 import { AuthContext } from '@/context/AuthContext';
 import { VscAccount } from "react-icons/vsc";
 
@@ -28,11 +29,18 @@ const Sidebar = () => {
             {/* Toggle button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-center h-14 hover:bg-gray-800 transition-colors cursor-pointer"
+                className="flex items-center justify-center h-20 hover:bg-gray-800 transition-colors cursor-pointer"
                 aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
             >
                 {isOpen ? (
-                    <MdChevronLeft className="text-2xl text-gray-400" />
+                    <div className='flex flex-row items-center w-full justify-between px-2'>
+                        <div className='flex flex-row items-center gap-2 ml-2'>
+                            <GiTakeMyMoney className="text-3xl font-extralight"/>
+                            <p className='text-2xl font-bold'>Tipid</p>
+                        </div>
+                        <MdChevronLeft className="text-4xl text-gray-400 mr-2" />
+                    </div>
+                    
                 ) : (
                     <MdMenu className="text-2xl text-gray-400" />
                 )}
