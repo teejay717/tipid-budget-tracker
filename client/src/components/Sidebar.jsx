@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { MdDashboard, MdHistory, MdCategory, MdMenu, MdChevronLeft, MdLogout, MdAttachMoney} from 'react-icons/md';
 import { GiTakeMyMoney } from "react-icons/gi";
@@ -12,8 +12,7 @@ const navItems = [
     { to: '/categories', label: 'Categories', icon: MdCategory },
 ];
 
-const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(true);
+const Sidebar = ({ isOpen, setIsOpen }) => {
 
     const { logout, user } = useContext(AuthContext);
 
