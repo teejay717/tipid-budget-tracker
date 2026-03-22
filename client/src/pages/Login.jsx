@@ -59,8 +59,8 @@ const Login = () => {
                         className="group w-full overflow-hidden rounded-2xl"
                         tiltMaxAngleX={8}
                         tiltMaxAngleY={8}
-                        tiltAngleXInitial={2}
-                        tiltAngleYInitial={-3}
+                        tiltAngleXInitial={0}
+                        tiltAngleYInitial={0}
                         perspective={1800}
                         scale={1.005}
                         transitionSpeed={1200}
