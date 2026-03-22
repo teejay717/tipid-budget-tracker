@@ -1,8 +1,25 @@
 # Tipid - Budget Tracker
 
-Tipid is a full-stack personal budget tracker for logging income/expenses, organizing categories, and viewing spending trends.
+A clean, modern full-stack budget tracker built with React, Express, and MongoDB.
 
-## Tech Stack
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?logo=vite)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-38B2AC?logo=tailwind-css)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5.2.1-000000?logo=express&logoColor=white)
+
+## ✨ Features
+
+- 🔐 **User Authentication** - Register and login with JWT-based authentication
+- 🛡️ **Protected API Routes** - Transactions and categories require valid auth tokens
+- ➕ **Transaction Management** - Add, edit, delete, and clear transactions
+- 🏷️ **Category Management** - Add, edit, and delete custom categories
+- ⚙️ **Smart Defaults** - New users get default categories automatically
+- 📊 **Visual Insights** - Monthly overview and expense category charts
+- 🔎 **Time Filtering** - Filter by week, month, last30days, year, or all
+
+## 🧱 Tech Stack
 
 ### Frontend
 
@@ -22,33 +39,25 @@ Tipid is a full-stack personal budget tracker for logging income/expenses, organ
 - JWT authentication
 - bcryptjs
 
-## Features
+## 🚀 Getting Started
 
-- User authentication (register/login) with JWT
-- Protected transaction and category routes
-- Add, edit, delete, and clear transactions
-- Add, edit, and delete custom categories
-- Auto-created default categories on account registration
-- Dashboard charts for monthly overview and expense distribution
-- Time-based filtering (week, month, last30days, year, all)
+### Prerequisites
 
-## Project Structure
+- Node.js 18 or higher
+- npm
+- MongoDB (local or Atlas)
 
-```text
-budget-tracker/
-  server.js
-  package.json
-  config/
-  controllers/
-  middleware/
-  models/
-  routes/
-  client/
-    src/
-    package.json
+### Installation
+
+From the root folder:
+
+```bash
+npm install
+cd client
+npm install
 ```
 
-## Environment Variables
+### Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -65,17 +74,7 @@ Create a `.env` file in `client/`:
 VITE_API_URL=http://localhost:5000
 ```
 
-## Installation
-
-From the root folder:
-
-```bash
-npm install
-cd client
-npm install
-```
-
-## Running the App (Development)
+## ▶️ Run the App (Development)
 
 Run backend (from root):
 
@@ -94,7 +93,7 @@ Default local URLs:
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
 
-## Available Scripts
+## 📜 Available Scripts
 
 ### Root (`package.json`)
 
@@ -108,7 +107,7 @@ Default local URLs:
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
-## API Endpoints
+## 🔌 API Endpoints
 
 Base URL: `/api`
 
@@ -132,7 +131,7 @@ Base URL: `/api`
 - `PUT /categories/:id`
 - `DELETE /categories/:id`
 
-## Auth Header
+## 🔐 Auth Header
 
 Protected routes require a bearer token:
 
@@ -140,15 +139,15 @@ Protected routes require a bearer token:
 Authorization: Bearer <token>
 ```
 
-## Notes
+## 📌 Notes
 
-- CORS allows `CLIENT_URL` from `.env` and `http://localhost:5173`.
-- Registration creates default categories (`Food`, `Transportation`, `Miscellaneous`).
-- Client falls back to `http://localhost:5000` if `VITE_API_URL` is not set.
+- CORS allows `CLIENT_URL` from `.env` and `http://localhost:5173`
+- Registration creates default categories (`Food`, `Transportation`, `Miscellaneous`)
+- Client falls back to `http://localhost:5000` if `VITE_API_URL` is not set
 
-## Future Improvements
+## 🛣️ Future Improvements
 
-- Add automated tests (backend + frontend)
-- Add refresh-token/session strategy
-- Add CI lint/build checks
-- Add Docker setup
+- ✅ Add automated tests (backend + frontend)
+- 🔁 Add refresh-token/session strategy
+- 🧪 Add CI lint/build checks
+- 🐳 Add Docker setup
