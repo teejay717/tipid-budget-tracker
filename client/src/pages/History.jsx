@@ -93,11 +93,13 @@ const History = () => {
         <div className="max-w-8xl mx-2">
             <h1 className="text-2xl font-bold text-white mb-6">History</h1>
             
-            <div className="flex flex-row gap-2 mb-4 ">
-                <SearchBar value={query} onChange={setQuery}/>
-                <div className="flex flex-1 justify-end gap-2">
+            <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
+                <div className="w-full sm:w-auto">
+                    <SearchBar value={query} onChange={setQuery}/>
+                </div>
+                <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:flex-1 sm:justify-end">
                 <Select value={currentPeriod} onValueChange={handlePeriodChange}>
-                    <SelectTrigger className="w-full max-w-48 text-white">
+                    <SelectTrigger className="w-full text-white sm:max-w-48">
                         <SelectValue placeholder="This Week" />
                     </SelectTrigger>
                     <SelectContent>
@@ -111,7 +113,7 @@ const History = () => {
                     </SelectContent>
                 </Select>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
-                    <SelectTrigger className="w-full max-w-48 text-white">
+                    <SelectTrigger className="w-full text-white sm:max-w-48">
                         <SelectValue placeholder="All Types" />
                     </SelectTrigger>
                     <SelectContent>
@@ -123,7 +125,7 @@ const History = () => {
                     </SelectContent>
                 </Select>
                 <Select value={typeCategory} onValueChange={handleCategoryChange}>
-                    <SelectTrigger className="w-full max-w-48 text-white">
+                    <SelectTrigger className="w-full text-white sm:max-w-48">
                         <SelectValue placeholder="All Types" />
                     </SelectTrigger>
                     <SelectContent>
@@ -140,7 +142,7 @@ const History = () => {
                     <button
                         onClick={() => setShowConfirmModal(true)}
                         className="text-xs text-gray-600/80 hover:text-red-700 font-bold uppercase tracking-wider transition-colors cursor-pointer
-                        px-2 rounded-md border border-gray-600/60 hover:bg-red-700"
+                        px-2 py-2 rounded-md border border-gray-600/60 hover:bg-red-700 sm:self-auto self-end"
                     >
                         <MdDeleteOutline className="text-lg text-white" />
                     </button>

@@ -1,7 +1,7 @@
 const Footer = ({ isSidebarOpen }) => {
     return (
         <footer
-            className={`fixed bottom-0 right-0 z-20 border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm transition-all duration-300 ease-in-out ${
+            className={`hidden md:block fixed bottom-0 right-0 z-20 border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm transition-all duration-300 ease-in-out ${
                 isSidebarOpen ? 'left-56' : 'left-16'
             }`}
         >
