@@ -4,16 +4,18 @@ import TransactionModal from "../components/TransactionModal";
 import TransactionList from "../components/TransactionList";
 import ExpenseChart from "../components/ExpenseChart";
 import IncomeExpenseBarChart from "../components/BarChart";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LoadingModal from "@/components/LoadingModal";
+import { AuthContext } from "@/context/AuthContext";
 
 const Dashboard = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState('income');
+    const { user } = useContext(AuthContext);
 
     return (
         <div className="w-full max-w-8xl mx-0 sm:mx-2">
-            <h1 className="text-2xl font-bold text-white mb-6">Allowance Tracker</h1>
+            <h1 className="text-2xl font-bold text-white mb-6">Welcome back, {user.name.trim().split(" ")[0]}!</h1>
             <Balance />
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6
 
