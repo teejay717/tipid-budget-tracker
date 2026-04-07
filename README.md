@@ -9,17 +9,17 @@ A clean, modern full-stack budget tracker built with React, Express, and MongoDB
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-5.2.1-000000?logo=express&logoColor=white)
 
-## ✨ Features
+## Features
 
-- 🔐 **User Authentication** - Register and login with JWT-based authentication
-- 🛡️ **Protected API Routes** - Transactions and categories require valid auth tokens
-- ➕ **Transaction Management** - Add, edit, delete, and clear transactions
-- 🏷️ **Category Management** - Add, edit, and delete custom categories
-- ⚙️ **Smart Defaults** - New users get default categories automatically
-- 📊 **Visual Insights** - Monthly overview and expense category charts
-- 🔎 **Time Filtering** - Filter by week, month, last30days, year, or all
+-  **User Authentication** - Register and login with JWT-based authentication
+-  **Protected API Routes** - Transactions and categories require valid auth tokens
+-  **Transaction Management** - Add, edit, delete, and clear transactions
+-  **Category Management** - Add, edit, and delete custom categories
+-  **Smart Defaults** - New users get default categories automatically
+-  **Visual Insights** - Monthly overview and expense category charts
+-  **Time Filtering** - Filter by week, month, last30days, year, or all
 
-## 🧱 Tech Stack
+##  Tech Stack
 
 ### Frontend
 
@@ -39,7 +39,7 @@ A clean, modern full-stack budget tracker built with React, Express, and MongoDB
 - JWT authentication
 - bcryptjs
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -74,7 +74,7 @@ Create a `.env` file in `client/`:
 VITE_API_URL=http://localhost:5000
 ```
 
-## ▶️ Run the App (Development)
+##  Run the App (Development)
 
 Run backend (from root):
 
@@ -93,7 +93,7 @@ Default local URLs:
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
 
-## 📜 Available Scripts
+##  Available Scripts
 
 ### Root (`package.json`)
 
@@ -131,7 +131,7 @@ Base URL: `/api`
 - `PUT /categories/:id`
 - `DELETE /categories/:id`
 
-## 🔐 Auth Header
+##  Auth Header
 
 Protected routes require a bearer token:
 
@@ -139,15 +139,15 @@ Protected routes require a bearer token:
 Authorization: Bearer <token>
 ```
 
-## 📌 Notes
+##  Notes
 
 - CORS allows `CLIENT_URL` from `.env` and `http://localhost:5173`
 - Registration creates default categories (`Food`, `Transportation`, `Miscellaneous`)
 - Client falls back to `http://localhost:5000` if `VITE_API_URL` is not set
 
-## 🛣️ Future Improvements
+##  Future Improvements
 
-- ✅ Add automated tests (backend + frontend)
-- 🔁 Add refresh-token/session strategy
-- 🧪 Add CI lint/build checks
-- 🐳 Add Docker setup
+-  Add automated tests (backend + frontend)
+-  Add refresh-token/session strategy
+-  Add CI lint/build checks
+-  Add Docker setup
