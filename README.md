@@ -107,7 +107,7 @@ Default local URLs:
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 Base URL: `/api`
 
