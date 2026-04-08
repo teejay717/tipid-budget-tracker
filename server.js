@@ -43,4 +43,8 @@ app.get('/', (req, res) => {
     res.json({msg: 'Budget Tracker Backend is running!'});
 })
 
+app.get('/status', (req, res) => {
+    res.json({msg: 'Running!'});
+})
+
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));
