@@ -175,7 +175,7 @@ html.light .hover\:text-white:hover {
 
 /* Keep intentional dark surfaces and their text readable in light mode. */
 html.light .balance-total-card {
-    background-image: linear-gradient(120deg, #27529c, #4f77b8);
+    background-image: linear-gradient(120deg, #354496, #5e5bf5);
 }
 
 html.light .balance-total-card .text-white {
@@ -231,7 +231,40 @@ html.light .transaction-list {
 }
 
 html.light .transaction-list:hover {
-    background-color: rgb(248 251 255 / 0.78);
+    background-color: rgba(210, 213, 218, 0.78);
+}
+
+html.light .transaction-arrow-chip-income {
+    background-color: #16a34a;
+}
+
+html.light .transaction-arrow-chip-expense {
+    background-color: #f87171;
+}
+
+html.light .transaction-arrow-icon-income,
+html.light .transaction-arrow-icon-expense {
+    color: #ffffff;
+}
+
+html.light .transaction-amount-income {
+    color: #16a34a;
+}
+
+html.light .auth-check-icon {
+    color: #059669;
+}
+
+html.light .auth-accent-pill-cyan {
+    color: #0e7490;
+    border-color: rgb(14 116 144 / 0.45);
+    background-color: rgb(6 182 212 / 0.18);
+}
+
+html.light .auth-accent-pill-emerald {
+    color: #047857;
+    border-color: rgb(5 150 105 / 0.45);
+    background-color: rgb(16 185 129 / 0.18);
 }
 
 

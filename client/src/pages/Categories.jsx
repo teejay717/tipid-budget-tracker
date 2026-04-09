@@ -33,7 +33,7 @@ const Categories = () => {
             <ul className='flex flex-col gap-2'>
                                         {categories.map(category => {
                                             return (
-                                                <li key={category._id} className="bg-gray-800/30 p-3 rounded-lg flex items-center gap-3 group hover:bg-gray-800/80 transition duration-200 relative overflow-hidden">
+                                                <li key={category._id} className="transaction-list bg-gray-800/30 p-3 rounded-lg flex items-center gap-3 group hover:bg-gray-800/80 transition duration-200 relative overflow-hidden">
                         
                                                     {/* Text & details */}
                                                     <div className='flex flex-row flex-1 min-w-0 text-md gap-2'>

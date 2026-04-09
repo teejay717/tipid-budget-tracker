@@ -80,7 +80,7 @@ const Register = () => {
                             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300" style={{ transform: 'translateZ(40px)' }}>
                                 Tipid by teejay.dev
                             </p>
-                            <p className="mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200" style={{ transform: 'translateZ(54px)' }}>
+                            <p className="auth-accent-pill auth-accent-pill-emerald mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200" style={{ transform: 'translateZ(54px)' }}>
                                 Start Your Money Journey
                             </p>
                             <h1 className="text-3xl font-bold leading-tight text-white lg:text-4xl" style={{ transform: 'translateZ(78px)' }}>
@@ -92,15 +92,15 @@ const Register = () => {
 
                             <ul className="mt-8 space-y-4" style={{ transform: 'translateZ(42px)' }}>
                                 <li className="flex items-start gap-3 text-sm text-slate-200">
-                                    <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                                    <MdOutlineCheckCircle className="auth-check-icon mt-0.5 shrink-0 text-xl text-emerald-300" />
                                     <span>See your balance update instantly as you add transactions.</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-sm text-slate-200">
-                                    <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                                    <MdOutlineCheckCircle className="auth-check-icon mt-0.5 shrink-0 text-xl text-emerald-300" />
                                     <span>Customize categories to match your real spending behavior.</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-sm text-slate-200">
-                                    <MdOutlineCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                                    <MdOutlineCheckCircle className="auth-check-icon mt-0.5 shrink-0 text-xl text-emerald-300" />
                                     <span>Use trend charts to catch overspending before it becomes a habit.</span>
                                 </li>
                             </ul>
