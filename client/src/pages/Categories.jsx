@@ -25,7 +25,7 @@ const Categories = () => {
         <div className="max-w-8xl mx-2">
             <div className="flex flex-row justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold text-white">Categories</h1>
-                <button className="px-3 py-2 rounded-lg font-semibold text-green-400 hover:text-white bg-green-900/30 border border-green-800 
+                <button className="category-add-btn px-3 py-2 rounded-lg font-semibold text-green-400 hover:text-white bg-green-900/30 border border-green-800 
                 hover:bg-green-900/50 transition-colors cursor-pointer" onClick={() => {
                     setModalOpen(true)
                 }}>+ Add</button>

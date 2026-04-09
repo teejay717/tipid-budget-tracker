@@ -142,8 +142,8 @@
     --sidebar-ring: oklch(0.57 0.08 264);
 
     /* Tailwind neutral color overrides used across the current UI. */
-    --color-gray-950: #e9eff8;
-    --color-gray-900: #f8fbff;
+    --color-gray-950: #f7f7f8;
+    --color-gray-900: #ffffff;
     --color-gray-800: #d9e2f0;
     --color-gray-700: #bcc8db;
     --color-gray-600: #67788f;
@@ -151,8 +151,8 @@
     --color-gray-400: #3f5169;
     --color-gray-300: #293b54;
     --color-gray-200: #1a2b44;
-    --color-slate-950: #e9eff8;
-    --color-slate-900: #f8fbff;
+    --color-slate-950: #f7f7f8;
+    --color-slate-900: #ffffff;
     --color-slate-700: #b9c6dc;
     --color-slate-400: #5f7290;
     --color-slate-300: #415573;
@@ -160,7 +160,7 @@
 }
 
 html.light body {
-    background-color: #e9eff8;
+    background-color: #f7f7f8;
     color: #0f172a;
 }
 
@@ -187,14 +187,23 @@ html.light .balance-total-card .text-gray-400 {
 }
 
 html.light .sidebar-panel {
-    background-color: rgb(248 251 255 / 0.88);
-    border-right: 1px solid #ced9ea;
+    background-color: rgb(255 255 255 / 0.92);
     box-shadow: 0 16px 36px rgb(15 23 42 / 0.06);
 }
 
 html.light .mobile-nav-panel {
-    background-color: rgb(248 251 255 / 0.95);
-    border-color: #ced9ea;
+    background-color: rgb(255 255 255 / 0.95);
+    border-color: #e5e7eb;
+}
+
+html.light .category-add-btn {
+    color: #ffffff;
+    background-color: #16a34a;
+    border: none;
+}
+
+html.light .category-add-btn:hover{
+    background-color: #15803d;
 }
 
 html.light .quick-income-btn {
