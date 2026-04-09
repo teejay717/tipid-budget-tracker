@@ -162,8 +162,8 @@ const TransactionModal = ({ isOpen, onClose, type, existingTransaction }) => {
                         <button
                             type="submit"
                             className={`flex-1 py-3 rounded-lg font-bold text-white cursor-pointer transition-colors ${existingTransaction ? 'bg-indigo-600 hover:bg-indigo-700 ' : (isExpense
-                                ? 'bg-red-600 hover:bg-red-700'
-                                : 'bg-green-600 hover:bg-green-700'
+                                ? 'bg-red-500 hover:bg-red-900'
+                                : 'bg-green-700 hover:bg-green-900'
     )}`}
                         >
                             {existingTransaction ? 'Save Changes' : (isExpense ? 'Add Expense' : 'Add Income')}
