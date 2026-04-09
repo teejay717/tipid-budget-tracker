@@ -7,9 +7,13 @@ const ProtectedLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     return (
-        <div className="flex h-dvh overflow-hidden bg-gray-950 md:h-auto md:min-h-screen">
+        <div className="flex min-h-dvh bg-gray-950 md:h-screen md:overflow-hidden">
             <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
-            <main className="min-h-0 flex-1 overflow-y-auto p-3 pb-24 sm:p-4 sm:pb-24 md:p-6 md:pb-6 lg:p-8">
+            <main
+                className={`min-h-dvh flex-1 p-3 pb-24 sm:p-4 sm:pb-24 md:h-screen md:min-h-0 md:overflow-y-auto md:p-6 md:pb-6 lg:p-8 transition-[margin] duration-300 ease-in-out ${
+                    isSidebarOpen ? 'md:ml-56' : 'md:ml-16'
+                }`}
+            >
                 <Outlet />
                 <Footer isSidebarOpen={isSidebarOpen} />
             </main>

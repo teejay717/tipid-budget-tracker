@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             {/* Desktop sidebar */}
             <aside
                 className={`
-                hidden h-screen sticky top-0 md:flex md:flex-col bg-gray-900 text-gray-300
+                hidden h-screen md:fixed md:inset-y-0 md:left-0 md:z-40 md:flex md:flex-col bg-gray-900 text-gray-300
                 border-r border-gray-800
                 transition-all duration-300 ease-in-out
                 ${isOpen ? 'w-56' : 'w-16'}
