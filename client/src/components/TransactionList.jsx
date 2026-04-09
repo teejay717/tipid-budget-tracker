@@ -53,7 +53,7 @@ const TransactionList = () => {
                     const iconColor = isExpense ? 'text-red-400' : 'text-green-400';
 
                     return (
-                        <li key={transaction._id} className="bg-gray-900 p-3 rounded-lg flex items-center gap-3 group hover:bg-gray-800/80 transition duration-200 relative overflow-hidden">
+                        <li key={transaction._id} className="transaction-list bg-gray-800/30 p-3 rounded-lg flex items-center gap-3 group hover:bg-gray-800/80 transition duration-200 relative overflow-hidden">
                             {/* Income/Expense icon */}
                             <div className={`w-9 h-9 rounded-full ${iconBg} flex items-center justify-center shrink-0`}>
                                 {isExpense

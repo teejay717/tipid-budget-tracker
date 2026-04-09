@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -81,6 +83,7 @@
 }
 
 .dark {
+    color-scheme: dark;
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);
@@ -114,6 +117,137 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+.light {
+    color-scheme: light;
+    --background: oklch(0.95 0.012 255);
+    --foreground: oklch(0.22 0.028 262);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.22 0.028 262);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.22 0.028 262);
+    --secondary: oklch(0.93 0.014 255);
+    --secondary-foreground: oklch(0.26 0.026 262);
+    --muted: oklch(0.935 0.014 255);
+    --muted-foreground: oklch(0.38 0.02 262);
+    --accent: oklch(0.9 0.02 255);
+    --accent-foreground: oklch(0.24 0.03 262);
+    --border: oklch(0.84 0.017 255);
+    --input: oklch(0.88 0.018 255);
+    --ring: oklch(0.57 0.08 264);
+    --sidebar: oklch(0.965 0.01 255);
+    --sidebar-foreground: oklch(0.24 0.028 262);
+    --sidebar-accent: oklch(0.91 0.02 255);
+    --sidebar-accent-foreground: oklch(0.23 0.03 262);
+    --sidebar-border: oklch(0.86 0.018 255);
+    --sidebar-ring: oklch(0.57 0.08 264);
+
+    /* Tailwind neutral color overrides used across the current UI. */
+    --color-gray-950: #e9eff8;
+    --color-gray-900: #f8fbff;
+    --color-gray-800: #d9e2f0;
+    --color-gray-700: #bcc8db;
+    --color-gray-600: #67788f;
+    --color-gray-500: #53647d;
+    --color-gray-400: #3f5169;
+    --color-gray-300: #293b54;
+    --color-gray-200: #1a2b44;
+    --color-slate-950: #e9eff8;
+    --color-slate-900: #f8fbff;
+    --color-slate-700: #b9c6dc;
+    --color-slate-400: #5f7290;
+    --color-slate-300: #415573;
+    --color-slate-200: #273a58;
+}
+
+html.light body {
+    background-color: #e9eff8;
+    color: #0f172a;
+}
+
+/* Keep readable foreground in light mode for components that currently rely on text-white in dark surfaces. */
+html.light .text-white {
+    color: #111827;
+}
+
+html.light .hover\:text-white:hover {
+    color: #0f172a;
+}
+
+/* Keep intentional dark surfaces and their text readable in light mode. */
+html.light .balance-total-card {
+    background-image: linear-gradient(120deg, #27529c, #4f77b8);
+}
+
+html.light .balance-total-card .text-white {
+    color: #f8fbff;
+}
+
+html.light .balance-total-card .text-gray-400 {
+    color: #c8d7f0;
+}
+
+html.light .sidebar-panel {
+    background-color: rgb(248 251 255 / 0.88);
+    border-right: 1px solid #ced9ea;
+    box-shadow: 0 16px 36px rgb(15 23 42 / 0.06);
+}
+
+html.light .mobile-nav-panel {
+    background-color: rgb(248 251 255 / 0.95);
+    border-color: #ced9ea;
+}
+
+html.light .quick-income-btn {
+    color: #ffffff;
+    background-color: #16a34a;
+    border: none;
+}
+
+html.light .quick-income-btn:hover {
+    background-color: #15803d;
+}
+
+html.light .quick-expense-btn {
+    color: #ffffff;
+    background-color: #e11d48;
+    border: none;
+}
+
+html.light .quick-expense-btn:hover {
+    background-color: #be123c;
+}
+
+html.light .this-month-income {
+    color: #16a34a;
+}
+
+html.light .this-week-income {
+    color: #16a34a;
+}
+
+html.light .transaction-list {
+    background-color: rgb(248 251 255 / 0.6);
+    border: 1px solid rgb(196 210 229 / 0.55);
+}
+
+html.light .transaction-list:hover {
+    background-color: rgb(248 251 255 / 0.78);
+}
+
+
+
+/* Preserve white text for high-saturation action buttons. */
+html.light .bg-indigo-600.text-white,
+html.light .bg-indigo-700.text-white,
+html.light .bg-red-600.text-white,
+html.light .bg-red-700.text-white,
+html.light .bg-green-600.text-white,
+html.light .bg-green-700.text-white,
+html.light .bg-purple-600.text-white,
+html.light .bg-purple-700.text-white {
+    color: #ffffff;
+}
+
 html,
 body,
 #root {
@@ -123,4 +257,5 @@ body,
 body {
     margin: 0;
     background-color: #030712;
+    font-family: "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }

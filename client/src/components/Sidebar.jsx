@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink } from 'react-router-dom';
-import { MdDashboard, MdHistory, MdCategory, MdMenu, MdChevronLeft, MdLogout } from 'react-icons/md';
-import { GiTakeMyMoney } from "react-icons/gi";
+import { MdDashboard, MdHistory, MdCategory, MdMenu, MdChevronLeft, MdLogout, MdDarkMode, MdLightMode } from 'react-icons/md';
 import { AuthContext } from '@/context/AuthContext';
 import { VscAccount } from "react-icons/vsc";
+import { useTheme } from '@/context/ThemeContext';
 
 
 const navItems = [
@@ -16,8 +16,9 @@ const navItems = [
 const Sidebar = ({ isOpen, setIsOpen }) => {
 
     const { logout, user } = useContext(AuthContext);
+    const { isDark, toggleTheme } = useTheme();
     const mobileNav = (
-        <nav className="fixed inset-x-0 bottom-0 z-[60] flex min-h-16 items-center gap-2 border-t border-gray-800 bg-gray-900/95 px-2 py-1 pb-[env(safe-area-inset-bottom)] text-gray-300 backdrop-blur-sm md:hidden">
+        <nav className="mobile-nav-panel fixed inset-x-0 bottom-0 z-[60] flex min-h-16 items-center gap-2 border-t border-gray-800 bg-gray-900/95 px-2 py-1 pb-[env(safe-area-inset-bottom)] text-gray-300 backdrop-blur-sm md:hidden">
             {navItems.map(({ to, label, icon: Icon }) => (
                 <NavLink
                     key={to}
@@ -37,6 +38,14 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             ))}
 
             <button
+                onClick={toggleTheme}
+                className="flex flex-1 items-center justify-center gap-1 rounded-lg px-2 py-2 text-[11px] font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-gray-200"
+            >
+                {isDark ? <MdLightMode className="text-xl shrink-0" /> : <MdDarkMode className="text-xl shrink-0" />}
+                <span className="whitespace-nowrap leading-none">{isDark ? 'Light' : 'Dark'}</span>
+            </button>
+
+            <button
                 onClick={logout}
                 className="flex flex-1 items-center justify-center gap-1 rounded-lg px-2 py-2 text-[11px] font-medium text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300"
             >
@@ -54,8 +63,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             {/* Desktop sidebar */}
             <aside
                 className={`
-                hidden h-screen md:fixed md:inset-y-0 md:left-0 md:z-40 md:flex md:flex-col bg-gray-900 text-gray-300
-                border-r border-gray-800
+                sidebar-panel hidden h-screen md:fixed md:inset-y-0 md:left-0 md:z-40 md:flex md:flex-col bg-gray-900/50 text-gray-300
+                
                 transition-all duration-300 ease-in-out
                 ${isOpen ? 'w-56' : 'w-16'}
                 `}
@@ -68,9 +77,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 >
                     {isOpen ? (
                         <div className='flex flex-row items-center w-full justify-between px-2'>
-                            <div className='flex flex-row items-center gap-2 ml-2'>
-                                <GiTakeMyMoney className="text-3xl font-extralight"/>
-                                <p className='text-2xl font-bold'>Tipid</p>
+                            <div className='ml-4 flex flex-col items-start text-left leading-tight'>
+                                <p className='text-2xl font-bold tracking-tight'>Tipid</p>
+                                <p className='text-xs text-gray-400 tracking-tight'>v0.1.0-beta</p>
                             </div>
                             <MdChevronLeft className="text-4xl text-gray-400 mr-2" />
                         </div>
@@ -113,6 +122,19 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                             </div>
                         )}
                     </div>
+
+                    <button
+                        onClick={toggleTheme}
+                        className={`
+                            w-full mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5
+                            text-sm font-medium transition-colors
+                            text-gray-300 hover:bg-gray-800 hover:text-gray-200
+                            ${!isOpen ? 'justify-center' : ''}
+                        `}
+                    >
+                        {isDark ? <MdLightMode className="text-xl shrink-0" /> : <MdDarkMode className="text-xl shrink-0" />}
+                        {isOpen && <span className="whitespace-nowrap">{isDark ? 'Light mode' : 'Dark mode'}</span>}
+                    </button>
 
                     <button
                         onClick={logout}

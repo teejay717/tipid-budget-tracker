@@ -14,21 +14,24 @@ const Dashboard = () => {
     const { user } = useContext(AuthContext);
 
     return (
-        <div className="w-full max-w-8xl mx-0 sm:mx-2">
-            <h1 className="text-2xl font-bold text-white mb-6">Welcome back, {user.name.trim().split(" ")[0]}!</h1>
+        <div className="w-full max-w-8xl px-0 sm:px-2">
+            <h1 className="text-3xl font-extrabold text-white mb-6">Welcome back, {user.name.trim().split(" ")[0]}!</h1>
             <Balance />
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6
 
 ">
                 <button
                     onClick={() => { setModalType('income'); setModalOpen(true); }}
-                    className="flex-1 py-3 rounded-lg font-semibold text-green-400 bg-green-900/30 border border-green-800 hover:bg-green-900/50 transition-colors cursor-pointer"
+                    className="quick-income-btn flex-1 py-3 rounded-lg font-semibold text-green-400 
+                    border border-green-900/50 
+                    bg-green-900/30  hover:bg-green-900/50 transition-colors cursor-pointer"
                 >
                     + Income
                 </button>
                 <button
                     onClick={() => { setModalType('expense'); setModalOpen(true); }}
-                    className="flex-1 py-3 rounded-lg font-semibold text-red-400 bg-red-900/30 border border-red-800 hover:bg-red-900/50 transition-colors cursor-pointer"
+                    className="quick-expense-btn flex-1 py-3 rounded-lg font-semibold text-red-400 bg-red-900/30 hover:bg-red-900/50 transition-colors cursor-pointer
+                    border border-red-900/50"
                 >
                     – Expense
                 </button>

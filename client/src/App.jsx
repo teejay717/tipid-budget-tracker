@@ -9,33 +9,36 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PrivateRoute from './components/PrivateRoute';
 import ProtectedLayout from './components/ProtectedLayout';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <AuthProvider>
-      <GlobalProvider>
-        <BrowserRouter>
-          <Routes>
-            {/* public routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+    <ThemeProvider>
+      <AuthProvider>
+        <GlobalProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* public routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-            {/* protected routes */}
-            <Route
-              element={
-                <PrivateRoute>
-                  <ProtectedLayout />
-                </PrivateRoute>
-              }
-            >
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/history" element={<History />} />
-              <Route path="/categories" element={<Categories />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </GlobalProvider>
-    </AuthProvider>
+              {/* protected routes */}
+              <Route
+                element={
+                  <PrivateRoute>
+                    <ProtectedLayout />
+                  </PrivateRoute>
+                }
+              >
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/history" element={<History />} />
+                <Route path="/categories" element={<Categories />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </GlobalProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

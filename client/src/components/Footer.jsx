@@ -6,7 +6,7 @@ const Footer = ({ isSidebarOpen }) => {
             }`}
         >
             <div className="px-6 py-3 text-center text-xs text-gray-400">
-                <span className="font-medium text-gray-300">Developed by teejay.dev</span>
+                <span className="font-medium text-gray-400">Developed by teejay.dev</span>
                 <span className="mx-2 text-gray-600">|</span>
                 <span>Tipid v0.1.0-beta</span>
             </div>

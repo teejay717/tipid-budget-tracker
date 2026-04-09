@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState'
 import { MdAccountBalanceWallet } from 'react-icons/md'
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
+import { FaCalendar } from "react-icons/fa";
+import { FaArrowTrendUp } from "react-icons/fa6";
 import { formatNumber } from '../utils/format.js'
 
 const Balance = () => {
@@ -64,36 +67,59 @@ const Balance = () => {
     return (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {/* Total Balance */}
-            <div className="col-span-2 flex min-w-0 flex-col justify-center rounded-xl border border-green-800/60 bg-green-950/30 p-4 sm:col-span-1 sm:p-5">
+            <div className="balance-total-card col-span-2 flex min-w-0 flex-col justify-center rounded-xl 
+        
+            bg-linear-to-r from-[#0f172a]  to-[#334155]
+            p-4 sm:col-span-1 sm:p-5">
                 <div className="flex items-center gap-2 mb-2">
-                    <MdAccountBalanceWallet className="text-green-500 text-sm" />
+                    <MdAccountBalanceWallet className="text-indigo-500 text-sm" />
                     <span className="text-gray-400 text-xs font-medium uppercase tracking-wider">Total Balance</span>
                 </div>
                 <h1 className="text-2xl font-extrabold text-white sm:text-3xl">
-                    ₱{total}
+                    {total < 0 ? '-' : ''}₱{Math.abs(total).toFixed(2)}
                 </h1>
             </div>
 
             {/* This Week */}
             <div className="flex min-w-0 flex-col justify-center rounded-xl border border-gray-800 bg-gray-900/60 p-4 sm:p-5">
+            <div className='flex flex-row gap-2'>
+                <FaArrowTrendUp className="text-indigo-500 text-sm" />
                 <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">This Week</span>
-                <h2 className="text-lg font-bold text-green-400 sm:text-xl">
-                    +₱{formatNumber(weekIncome)}
-                </h2>
-                <h2 className="text-lg font-bold text-red-400 sm:text-xl">
-                    -₱{formatNumber(weekExpense  == -0.00 ? '0.00' : weekExpense)}
+            </div>
+                
+            <div className='this-week-income flex flex-row text-center items-center gap-1 text-green-400 '>
+                <TiArrowSortedUp className="text-sm"/>
+                <h2 className="text-lg font-bold sm:text-xl">
+                    ₱{formatNumber(weekIncome)}
                 </h2>
             </div>
-
-            {/* Expense */}
-            <div className="flex min-w-0 flex-col justify-center rounded-xl border border-gray-800 bg-gray-900/60 p-4 sm:p-5">
-                <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">This Month</span>
-                <h2 className="text-lg font-bold text-green-400 sm:text-xl">
-                    +₱{formatNumber(monthIncome)}
-                </h2>
+            <div className='flex flex-row text-center items-center gap-1'>
+                <TiArrowSortedDown className="text-red-400 text-sm"/>
                 <h2 className="text-lg font-bold text-red-400 sm:text-xl">
-                    -₱{formatNumber(monthExpense  == -0.00 ? '0.00' : monthExpense)}
+                    ₱{formatNumber(weekExpense  == -0.00 ? '0.00' : weekExpense)}
                 </h2>
+            </div>
+            </div>
+
+            {/* This Month */}
+            <div className="flex min-w-0 flex-col justify-center rounded-xl border border-gray-800 bg-gray-900/60 p-4 sm:p-5">
+            <div className='flex flex-row gap-2'>
+                <FaCalendar className="text-indigo-500 text-sm" />
+                <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">This Month</span>
+            </div>
+            <div className='this-month-income flex flex-row text-center items-center gap-1 text-green-400'>
+                <TiArrowSortedUp className="text-sm"/>
+                <h2 className="text-lg font-bold sm:text-xl">
+                    ₱{formatNumber(monthIncome)}
+                </h2>
+            </div>
+            <div className='flex flex-row text-center items-center gap-1 text-red-400'>
+                <TiArrowSortedDown className=" text-sm"/>
+                <h2 className="text-lg font-bold  sm:text-xl">
+                    ₱{formatNumber(monthExpense  == -0.00 ? '0.00' : monthExpense)}
+                </h2>
+            </div>
+                
             </div>
         </div>
     )

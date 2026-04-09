@@ -21,12 +21,14 @@ import {
     ChartLegend, 
     ChartLegendContent
 } from "@/components/ui/chart"
+import { useTheme } from '@/context/ThemeContext';
 
 export const description = "A donut chart with text"
 
 const ExpenseChart = () => {
 
     const { transactions } = useContext(GlobalContext);
+    const { isDark } = useTheme();
     const navigate = useNavigate();    
     const expenses = transactions.filter(transaction => transaction.amount < 0);
 
@@ -70,6 +72,12 @@ const ExpenseChart = () => {
     return chartData.reduce((acc, curr) => acc + curr.amount, 0)
     }, [chartData])
 
+    const centerPrimaryColor = isDark ? 'oklch(0.985 0 0)' : 'oklch(0.24 0.03 262)';
+    const centerSecondaryColor = isDark ? 'oklch(0.708 0 0)' : 'oklch(0.42 0.02 262)';
+    const tooltipBackground = isDark ? '#1e293b' : '#ffffff';
+    const tooltipBorder = isDark ? '#334155' : '#c7d3e6';
+    const tooltipValueColor = isDark ? '#ffffff' : '#0f172a';
+
     return (
         <div>
             <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
@@ -91,9 +99,9 @@ const ExpenseChart = () => {
                     if (active && payload && payload.length) {
                         const { name, amount } = payload[0].payload;
                         return (
-                            <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '8px 12px' }}>
+                            <div style={{ background: tooltipBackground, border: `1px solid ${tooltipBorder}`, borderRadius: '8px', padding: '8px 12px' }}>
                                 <p style={{ color: payload[0].payload.fill, fontWeight: 'bold', margin: 0 }}>{name}</p>
-                                <p style={{ color: 'white', margin: 0 }}>₱{amount.toLocaleString()}</p>
+                                <p style={{ color: tooltipValueColor, margin: 0 }}>₱{amount.toLocaleString()}</p>
                             </div>
                         );
                     }
@@ -127,14 +135,14 @@ const ExpenseChart = () => {
                         <tspan
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            style={{ fill: 'oklch(0.985 0 0)', fontSize: '1.5rem', fontWeight: 'bold' }}
+                            style={{ fill: centerPrimaryColor, fontSize: '1.5rem', fontWeight: 'bold' }}
                             >
                             -₱{totalExpenses.toLocaleString()}
                         </tspan>
                         <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 24}
-                            style={{ fill: 'oklch(0.708 0 0)' }}
+                            style={{ fill: centerSecondaryColor }}
                         >
                             Expenses
                         </tspan>
