@@ -48,7 +48,7 @@ const Balance = () => {
 
     const amounts = transactions.map(transaction => transaction.amount)
     const totalAmount = amounts.reduce((acc, item) => (acc += item), 0);
-    const total = formatNumber(totalAmount)
+    const total = formatNumber(Math.abs(totalAmount))
 
     const incomeTotal = amounts
         .filter(item => item > 0)
@@ -76,7 +76,7 @@ const Balance = () => {
                     <span className="text-gray-400 text-xs font-medium uppercase tracking-wider">Total Balance</span>
                 </div>
                 <h1 className="text-2xl font-extrabold text-white sm:text-3xl">
-                    {total < 0 ? '-' : ''}₱{Math.abs(total).toFixed(2)}
+                    {totalAmount < 0 ? '-' : ''}₱{total}
                 </h1>
             </div>
 
